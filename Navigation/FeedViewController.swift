@@ -15,9 +15,34 @@ class FeedViewController: UIViewController {
            button.setTitle("Открыть пост", for: .normal)
            button.setTitleColor(.systemBlue, for: .normal)
 
+           button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+
            return button
        }()
+
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        title = "Лента"
+        view.backgroundColor = .orange
+
+        view.addSubview(postButton)
+
+        сonstraintButton()
+    }
     
+
+    @objc func buttonPressed(_ sender: UIButton) {
+        let post: Post = Post(title: "Мой первый пост")
+
+        let postViewController = PostViewController()
+        postViewController.post = post
+        postViewController.modalTransitionStyle = .flipHorizontal // flipHorizontal
+        postViewController.modalPresentationStyle = .fullScreen // pageSheet
+
+        navigationController?.pushViewController(postViewController, animated: true)
+      }
 
     fileprivate func сonstraintButton() {
         let safeAreaLayoutGuide = view.safeAreaLayoutGuide
@@ -34,30 +59,5 @@ class FeedViewController: UIViewController {
             postButton.heightAnchor.constraint(equalToConstant: 44.0)
         ])
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        title = "Лента"
-        view.backgroundColor = .orange
-
-        view.addSubview(postButton)
-
-        сonstraintButton()
-
-        postButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
-    }
-    
-
-    @objc func buttonPressed(_ sender: UIButton) {
-        var post: Post = Post(title: "Мой первый пост")
-
-        let postViewController = PostViewController()
-        postViewController.post = post
-        postViewController.modalTransitionStyle = .flipHorizontal // flipHorizontal
-        postViewController.modalPresentationStyle = .fullScreen // pageSheet
-
-        navigationController?.pushViewController(postViewController, animated: true)
-      }
 }
 

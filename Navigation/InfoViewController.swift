@@ -15,8 +15,35 @@ class InfoViewController: UIViewController {
            button.setTitle("Alert", for: .normal)
            button.setTitleColor(.systemBlue, for: .normal)
 
+           button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+
            return button
        }()
+
+
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        title = "Info"
+        view.backgroundColor = .magenta
+
+        view.addSubview(myButton)
+
+        сonstraintButton()
+    }
+    
+
+    @objc func buttonPressed(_ sender: UIButton) {
+        let alert = UIAlertController(title: "Понравилось ДЗ?", message: "Доп описание", preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: {action in print("Вы нажали: \(action.title!)")}))
+        alert.addAction(UIAlertAction(title: "Нет", style: .destructive, handler: {action in print("Вы нажали: \(action.title!)")}))
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: {action in print("Вы нажали: \(action.title!)")}))
+
+        present(alert, animated: true)
+    }
+
 
 
     fileprivate func сonstraintButton() {
@@ -33,31 +60,6 @@ class InfoViewController: UIViewController {
             myButton.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
             myButton.heightAnchor.constraint(equalToConstant: 44.0)
         ])
-    }
-
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        title = "Info"
-        view.backgroundColor = .magenta
-
-        view.addSubview(myButton)
-
-        сonstraintButton()
-
-        myButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
-    }
-    
-
-    @objc func buttonPressed(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Понравилось ДЗ?", message: "Доп описание", preferredStyle: .actionSheet)
-
-        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: {action in print("Вы нажали: \(action.title!)")}))
-        alert.addAction(UIAlertAction(title: "Нет", style: .destructive, handler: {action in print("Вы нажали: \(action.title!)")}))
-        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: {action in print("Вы нажали: \(action.title!)")}))
-
-        present(alert, animated: true)
     }
 
 }
