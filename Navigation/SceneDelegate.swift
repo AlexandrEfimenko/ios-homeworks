@@ -23,10 +23,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = UITabBarController()
 
         let feedViewController = FeedViewController()
-        feedViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
+        feedViewController.tabBarItem = UITabBarItem(title: "Feed", image:
+                                                        UIImage(named: "house.fill"), tag: 0)
+
 
         let profileViewController = ProfileViewController()
-        profileViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 1)
+        profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "person.fill"), tag: 1)
+
 
         let viewControllers = [feedViewController, profileViewController]
 
@@ -35,7 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         tabBarController.viewControllers = navigationControllers
 
-        tabBarController.selectedIndex = 0
+        tabBarController.selectedIndex = 1
 
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
