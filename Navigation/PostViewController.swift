@@ -26,8 +26,8 @@ class PostViewController: UIViewController {
 
         let infoViewController = InfoViewController()
 
-        infoViewController.modalTransitionStyle = .flipHorizontal // flipHorizontal
-        infoViewController.modalPresentationStyle = .fullScreen // pageSheet
+        infoViewController.modalTransitionStyle = .coverVertical // flipHorizontal
+        infoViewController.modalPresentationStyle = .pageSheet // pageSheet
 
         present(infoViewController, animated: true)
 

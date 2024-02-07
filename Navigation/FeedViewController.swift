@@ -43,6 +43,7 @@ class FeedViewController: UIViewController {
 
         navigationController?.pushViewController(postViewController, animated: true)
       }
+    
 
     fileprivate func сonstraintButton() {
         let safeAreaLayoutGuide = view.safeAreaLayoutGuide
