@@ -14,7 +14,7 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
 
         title = post.title
-        view.backgroundColor = .purple
+        view.backgroundColor = .systemGray4
 
         let myButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(buttonPressed))
 
