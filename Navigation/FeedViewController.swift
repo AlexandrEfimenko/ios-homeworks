@@ -12,7 +12,7 @@ class FeedViewController: UIViewController {
     private lazy var postButton: UIButton = {
            let button = UIButton()
            button.translatesAutoresizingMaskIntoConstraints = false
-           button.setTitle("Открыть пост", for: .normal)
+           button.setTitle("Пост 1", for: .normal)
            button.setTitleColor(.systemBlue, for: .normal)
 
            button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
@@ -20,21 +20,44 @@ class FeedViewController: UIViewController {
            return button
        }()
 
+    private lazy var button2: UIButton = {
+           let button = UIButton()
+           button.translatesAutoresizingMaskIntoConstraints = false
+           button.setTitle("Пост 2", for: .normal)
+           button.setTitleColor(.systemBlue, for: .normal)
+
+           button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+
+           return button
+       }()
+
+    private lazy var stackView: UIStackView = {
+           let stack = UIStackView()
+           stack.translatesAutoresizingMaskIntoConstraints = false
+           stack.axis = .vertical
+
+           stack.addArrangedSubview(postButton)
+           stack.addArrangedSubview(button2)
+           stack.spacing = 10
+
+           return stack
+       }()
+
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "Лента"
-        view.backgroundColor = .orange
+        view.backgroundColor = .lightGray
 
-        view.addSubview(postButton)
-
-        сonstraintButton()
+        view.addSubview(stackView)
+        setupConstraints()
     }
     
 
     @objc func buttonPressed(_ sender: UIButton) {
-        let post: Post = Post(title: "Мой первый пост")
+        let post: Post = Post(title: sender.titleLabel?.text ?? "")
 
         let postViewController = PostViewController()
         postViewController.post = post
@@ -45,19 +68,20 @@ class FeedViewController: UIViewController {
       }
     
 
-    fileprivate func сonstraintButton() {
+    fileprivate func setupConstraints() {
         let safeAreaLayoutGuide = view.safeAreaLayoutGuide
+
         NSLayoutConstraint.activate([
-            postButton.leadingAnchor.constraint(
+            stackView.leadingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.leadingAnchor,
-                constant: 20.0
+                constant: 10.0
             ),
-            postButton.trailingAnchor.constraint(
+            stackView.trailingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.trailingAnchor,
-                constant: -20.0
+                constant: -10.0
             ),
-            postButton.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
-            postButton.heightAnchor.constraint(equalToConstant: 44.0)
+            stackView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
+            stackView.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
 }
