@@ -57,7 +57,9 @@ class FeedViewController: UIViewController {
     
 
     @objc func buttonPressed(_ sender: UIButton) {
-        let post: Post = Post(title: sender.titleLabel?.text ?? "")
+        let posts = Posts.getPosts()
+
+        let post: Post = posts[0]
 
         let postViewController = PostViewController()
         postViewController.post = post
