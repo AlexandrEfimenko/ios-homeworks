@@ -8,12 +8,12 @@
 import UIKit
 
 class PostViewController: UIViewController {
-    var post: Post = Post(title: "")
+    var post: Post = Post(author: "", description: "", image: "", likes: 0, views: 0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = post.title
+        title = post.author
         view.backgroundColor = .systemGray4
 
         let myButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(buttonPressed))

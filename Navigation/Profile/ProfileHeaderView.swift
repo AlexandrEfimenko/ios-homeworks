@@ -113,10 +113,12 @@ class ProfileHeaderView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        translatesAutoresizingMaskIntoConstraints = false
         setupSubView()
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -128,15 +130,23 @@ class ProfileHeaderView: UIView {
         addSubview(statusLabel)
         addSubview(statusButton)
         addSubview(statusTextField)
-        addSubview(editTitleButton)
+      //  addSubview(editTitleButton)
     }
+
+    override var intrinsicContentSize: CGSize {
+            CGSize(
+                width: UIView.noIntrinsicMetric,
+                height: 44.0
+            )
+        }
+
 
     @objc private func TapStatusButton() {
         print(statusText)
     }
 
     @objc private func TapEditTitleButton() {
-        print("test")
+        print("TapEditTitleButton")
     }
 
 
@@ -151,44 +161,46 @@ class ProfileHeaderView: UIView {
 
 
     private func setupConstraints() {
-        let safeArea = safeAreaLayoutGuide
+       // let safeArea = safeAreaLayoutGuide
 
         let constraints: [NSLayoutConstraint] = [
             avatarView.heightAnchor.constraint(equalToConstant: 100),
             avatarView.widthAnchor.constraint(equalToConstant: 100),
-            avatarView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-            avatarView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30),
+            avatarView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            avatarView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
 
             nameLabel.heightAnchor.constraint(equalToConstant: 50),
             nameLabel.widthAnchor.constraint(equalToConstant: 150),
-            nameLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 130),
-            nameLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30),
+            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 130),
+            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 30),
 
             statusLabel.heightAnchor.constraint(equalToConstant: 50),
             statusLabel.widthAnchor.constraint(equalToConstant: 300),
             statusLabel.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 15),
-            statusLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: 16),
+            statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16),
             statusLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
 
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
             statusTextField.widthAnchor.constraint(equalToConstant: 220),
             statusTextField.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 15),
-            statusTextField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            statusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 5),
 
 
             statusButton.heightAnchor.constraint(equalToConstant: 50),
             statusButton.widthAnchor.constraint(equalToConstant: 350),
             statusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
-            statusButton.bottomAnchor.constraint(equalTo: statusButton.topAnchor),
-            statusButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-            statusButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            statusButton.bottomAnchor.constraint(equalTo: bottomAnchor),
+            statusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            statusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 
+            /*
             editTitleButton.heightAnchor.constraint(equalToConstant: 30),
             editTitleButton.widthAnchor.constraint(equalToConstant: 350),
             editTitleButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             editTitleButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             editTitleButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
+             */
         ]
 
         NSLayoutConstraint.activate(constraints)
