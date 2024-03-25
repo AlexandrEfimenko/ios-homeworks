@@ -9,12 +9,6 @@ import UIKit
 
 class LogInViewController: UIViewController {
 
-/*    private lazy var  loginView: LogInView = {
-        let login = LogInView()
-        return login
-    }()
-*/
-
     private lazy var contentView: UIView  = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
