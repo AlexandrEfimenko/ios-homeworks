@@ -164,7 +164,7 @@ class ProfileHeaderView: UIView {
     }
 
     @objc private func didTapAvatar() {
-        print("didTapAvagittar")
+        print("didTapAvatar")
     }
 
 
