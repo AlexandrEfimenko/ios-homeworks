@@ -69,6 +69,8 @@ class ProfileViewController: UIViewController {
 
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.cellId)
 
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.cellId)
+
         tableView.setAndLayout(headerView: profileHeader)
     }
 
@@ -77,19 +79,50 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        posts.count
+        if section == 0 {
+            1
+        } else {
+            posts.count
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.cellId, for: indexPath) as? PostTableViewCell
-        else {
-            return UITableViewCell()
+        if indexPath.section == 0  && indexPath.row == 0  {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.cellId, for: indexPath) as? PhotosTableViewCell
+            else {
+                return UITableViewCell()
+            }
+            return cell
+
+        } else if indexPath.section == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.cellId, for: indexPath) as? PostTableViewCell
+            else {
+                return UITableViewCell()
+            }
+
+            cell.updateData(post: posts[indexPath.row])
+
+            return cell
         }
 
-        cell.updateData(post: posts[indexPath.row])
-
-        return cell
+        return UITableViewCell()
     }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        " "
+    }
+
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = PhotosViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
 }
