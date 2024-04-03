@@ -15,7 +15,7 @@ class PhotosTableViewCell: UITableViewCell {
     private var widthPhotoImage = 0.0
 
 
-    private let photoLabel: UILabel = {
+    private lazy var photoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 24, weight: .bold)
@@ -26,7 +26,7 @@ class PhotosTableViewCell: UITableViewCell {
     } ()
 
 
-    private let photoImage1: UIImageView = {
+    private lazy var photoImage1: UIImageView = {
        let image = UIImageView()
        image.image = UIImage(named: "Car")
        image.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +37,7 @@ class PhotosTableViewCell: UITableViewCell {
        return image
     } ()
 
-    private let photoImage2: UIImageView = {
+    private lazy var photoImage2: UIImageView = {
        let image = UIImageView()
        image.image = UIImage(named: "My")
        image.translatesAutoresizingMaskIntoConstraints = false
@@ -48,7 +48,7 @@ class PhotosTableViewCell: UITableViewCell {
        return image
     } ()
 
-    private let photoImage3: UIImageView = {
+    private lazy var photoImage3: UIImageView = {
        let image = UIImageView()
        image.image = UIImage(named: "wmelon")
        image.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +60,7 @@ class PhotosTableViewCell: UITableViewCell {
     } ()
 
 
-    private let photoImage4: UIImageView = {
+    private lazy var photoImage4: UIImageView = {
        let image = UIImageView()
        image.image = UIImage(named: "dog1")
        image.translatesAutoresizingMaskIntoConstraints = false
@@ -102,8 +102,7 @@ class PhotosTableViewCell: UITableViewCell {
             photoLabel.topAnchor.constraint(equalTo: topAnchor, constant: 12),
             photoLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             photoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-            photoLabel.heightAnchor.constraint(equalToConstant: 20),
-            photoLabel.widthAnchor.constraint(equalToConstant: 20),
+
 
             photoImage1.topAnchor.constraint(equalTo: photoLabel.bottomAnchor, constant: 12),
             photoImage1.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
@@ -128,6 +127,7 @@ class PhotosTableViewCell: UITableViewCell {
             photoImage4.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
             photoImage4.heightAnchor.constraint(equalToConstant: widthPhotoImage),
             photoImage4.widthAnchor.constraint(equalToConstant: widthPhotoImage)
+
 
         ]
 
