@@ -8,13 +8,13 @@
 import UIKit
 
 class PostViewController: UIViewController {
-    var post: Post = Post(title: "")
+    var post: Post = Post(author: "", description: "", image: "", likes: 0, views: 0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = post.title
-        view.backgroundColor = .purple
+        title = post.author
+        view.backgroundColor = .systemGray4
 
         let myButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(buttonPressed))
 
@@ -26,8 +26,8 @@ class PostViewController: UIViewController {
 
         let infoViewController = InfoViewController()
 
-        infoViewController.modalTransitionStyle = .flipHorizontal // flipHorizontal
-        infoViewController.modalPresentationStyle = .fullScreen // pageSheet
+        infoViewController.modalTransitionStyle = .coverVertical // flipHorizontal
+        infoViewController.modalPresentationStyle = .pageSheet // pageSheet
 
         present(infoViewController, animated: true)
 

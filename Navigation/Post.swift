@@ -8,6 +8,18 @@
 import Foundation
 
 struct Post {
-    var title: String 
+   /*
+author: String никнейм автора публикации
+description: String - текст публикации
+image: String - имя картинки из каталога Assets.xcassets
+likes: Int - количество лайков
+views: Int - количество просмотров
+*/
+    var author: String
+    var description: String
+    var image: String
+    var likes: Int
+    var views: Int
+
 }
 
