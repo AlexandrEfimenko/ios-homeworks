@@ -9,11 +9,47 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-
     var profileHeader: ProfileHeaderView = {
        let headerView = ProfileHeaderView()
        return headerView
     }()
+
+    private var avatarViewCenterOrigin = CGPoint()
+    private var avatarViewOld = UIImageView()
+
+
+    lazy var  animationView: UIView = {
+        let animationView = UIView()
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.backgroundColor = .white
+        animationView.frame = view.frame
+        animationView.alpha = 1.0
+
+        return animationView
+    }()
+
+
+    private lazy var hiddenAnimateButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isUserInteractionEnabled = true
+        button.backgroundColor = .systemGray
+        button.setTitle("X", for: .normal)
+        button.alpha = 0.0
+        button.layer.cornerRadius = 25
+
+        /*
+        button.layer.shadowOffset = CGSize(width: 4, height: 4)
+        button.layer.shadowRadius = 4
+        button.layer.shadowOpacity = 0.7
+        button.layer.shadowColor = UIColor.black.cgColor
+         */
+
+        button.addTarget(self, action: #selector(TapHiddenAnimateButton), for: .touchUpInside)
+
+        return button
+    }()
+
 
 
     private let posts = Posts.getPosts()
@@ -37,7 +73,14 @@ class ProfileViewController: UIViewController {
     }
 
     private func setupUI() {
-        view.addSubview(tableView)
+
+        view.addSubview(animationView)
+
+        animationView.addSubview(tableView)
+        animationView.addSubview(hiddenAnimateButton)
+
+        profileHeader.delegate = self
+
         setupConstraints()
     }
 
@@ -45,10 +88,33 @@ class ProfileViewController: UIViewController {
         let safeArea = view.safeAreaLayoutGuide
 
         let constraints: [NSLayoutConstraint] = [
+
+            animationView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            animationView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            animationView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            animationView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+
+            tableView.leadingAnchor.constraint(equalTo: animationView.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: animationView.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: animationView.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: animationView.bottomAnchor),
+
+            /*
             tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+
+
+            animationView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+            animationView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+            animationView.topAnchor.constraint(equalTo: tableView.topAnchor),
+            animationView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
+           */
+            hiddenAnimateButton.topAnchor.constraint(equalTo: animationView.topAnchor, constant: 10),
+            hiddenAnimateButton.trailingAnchor.constraint(equalTo: animationView.trailingAnchor, constant: -10),
+            hiddenAnimateButton.heightAnchor.constraint(equalToConstant: 50),
+            hiddenAnimateButton.widthAnchor.constraint(equalToConstant: 50),
         ]
 
         NSLayoutConstraint.activate(constraints)
@@ -124,5 +190,108 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         let vc = PhotosViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
+
+
+    @objc private func TapHiddenAnimateButton() {
+        print("TapHiddenAnimateButton")
+        animateViewRecive()
+    }
+
+}
+
+extension ProfileViewController: animationDelgate{
+    func animateView(avatarView: UIImageView) {
+        let centerOrigin = avatarView.center
+
+        self.avatarViewOld = avatarView
+        self.avatarViewCenterOrigin = centerOrigin
+
+
+        UIView.animateKeyframes(
+            withDuration: 1.0,
+            delay: 0.0,
+            options: .calculationModeCubic,
+            animations: {
+
+                // 1
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0.0,
+                    relativeDuration: 0.5
+                ) {
+                    avatarView.center = CGPoint(
+                        x: centerOrigin.x * 3,
+                        y: centerOrigin.y * 6
+                    )
+
+
+                    avatarView.transform = CGAffineTransform(
+                        scaleX: 5,
+                        y: 4
+                    )
+
+                    avatarView.layer.cornerRadius = 0
+                    self.animationView.alpha = 0.5
+                    avatarView.alpha = 1.0
+                }
+
+                // 2
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0.5,
+                    relativeDuration: 0.3
+                ) {
+                    self.hiddenAnimateButton.isHidden = false
+                    self.hiddenAnimateButton.alpha = 1.0
+                }
+
+
+            },
+            completion: { finished in
+                print("Did finish animateView()")
+            })
+    }
+    
+    func animateViewRecive() {
+
+        UIView.animateKeyframes(
+            withDuration: 1.0,
+            delay: 0.0,
+            options: .calculationModeCubic,
+            animations: {
+
+                // 1
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0.0,
+                    relativeDuration: 0.5
+                ) {
+                    self.avatarViewOld.center = self.avatarViewCenterOrigin
+
+                    self.avatarViewOld.transform = CGAffineTransform(
+                        scaleX: 1,
+                        y: 1
+                    )
+
+                    self.avatarViewOld.layer.cornerRadius = 50
+                    self.avatarViewOld.alpha = 1.0
+                    self.animationView.alpha = 1.0
+                }
+
+                // 2
+                UIView.addKeyframe(
+                    withRelativeStartTime: 0.5,
+                    relativeDuration: 0.3
+                ) {
+                    self.hiddenAnimateButton.alpha = 0.1
+                    self.hiddenAnimateButton.isHidden = true
+                }
+
+
+            },
+            completion: { finished in
+                print("Did finish animateViewRecive()")
+            })
+
+
+    }
+
 
 }

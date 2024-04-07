@@ -86,17 +86,11 @@ class PostTableViewCell: UITableViewCell {
             authorLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             authorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             authorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            authorLabel.heightAnchor.constraint(equalToConstant: 30),
-            authorLabel.widthAnchor.constraint(equalToConstant: 30),
-
 
             imageV.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant:  1),
-            imageV.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -10),
             imageV.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             imageV.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            imageV.heightAnchor.constraint(equalToConstant: 100),
-            imageV.widthAnchor.constraint(equalToConstant: 100),
-
+            imageV.heightAnchor.constraint(equalToConstant: 200),
 
             descriptionLabel.topAnchor.constraint(equalTo:   imageV.bottomAnchor, constant: 1),
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),

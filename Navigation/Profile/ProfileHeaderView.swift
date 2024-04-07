@@ -10,9 +10,21 @@ import UIKit
 
 class ProfileHeaderView: UIView {
 
+    var delegate: animationDelgate?
+
     private var statusText: String = ""
 
-    private let avatarView: UIImageView =  {
+    private lazy var newV: UIView = {
+        let line =  UIView()
+        line.translatesAutoresizingMaskIntoConstraints = false
+        line.backgroundColor = .lightGray
+
+        return line
+    } ()
+
+
+    private lazy var avatarView: UIImageView =  {
+
         //let imageView = UIImageView(frame: CGRect(x: 16, y: 100, width: 100, height: 100))
 
         let imageView = UIImageView()
@@ -23,12 +35,18 @@ class ProfileHeaderView: UIView {
         imageView.layer.cornerRadius = 50
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isUserInteractionEnabled = true
+
+        let tapImage = UITapGestureRecognizer(target: self, action: #selector (didTapAvatar))
+        imageView.addGestureRecognizer(tapImage)
 
        return imageView
     }()
 
 
-    private let nameLabel: UILabel = {
+
+    private lazy var nameLabel: UILabel = {
+
         //let label = UILabel(frame: CGRect(x: 130, y: 100, width: 150, height: 50))
         let label = UILabel()
 
@@ -125,12 +143,11 @@ class ProfileHeaderView: UIView {
 
 
     private func setupSubView() {
-        addSubview(avatarView)
         addSubview(nameLabel)
         addSubview(statusLabel)
-        addSubview(statusButton)
         addSubview(statusTextField)
-      //  addSubview(editTitleButton)
+        addSubview(statusButton)
+        addSubview(avatarView)
     }
 
     override var intrinsicContentSize: CGSize {
@@ -160,8 +177,18 @@ class ProfileHeaderView: UIView {
     }
 
 
+    @objc private func didTapAvatar() {
+        print("didTapAvatar")
+        launchAnimationAvatar()
+    }
+
+
+    private func launchAnimationAvatar() {
+        self.delegate?.animateView(avatarView: avatarView)
+    }
+
+
     private func setupConstraints() {
-       // let safeArea = safeAreaLayoutGuide
 
         let constraints: [NSLayoutConstraint] = [
             avatarView.heightAnchor.constraint(equalToConstant: 100),
@@ -171,19 +198,17 @@ class ProfileHeaderView: UIView {
 
             nameLabel.heightAnchor.constraint(equalToConstant: 50),
             nameLabel.widthAnchor.constraint(equalToConstant: 150),
-            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 130),
+            nameLabel.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 30),
             nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 30),
 
             statusLabel.heightAnchor.constraint(equalToConstant: 50),
             statusLabel.widthAnchor.constraint(equalToConstant: 300),
-            statusLabel.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 15),
-            statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16),
+            statusLabel.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 30),
             statusLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
 
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
             statusTextField.widthAnchor.constraint(equalToConstant: 220),
-            statusTextField.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 15),
-            statusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            statusTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 146),
             statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 5),
 
 
@@ -192,18 +217,17 @@ class ProfileHeaderView: UIView {
             statusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
             statusButton.bottomAnchor.constraint(equalTo: bottomAnchor),
             statusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            statusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 
-            /*
-            editTitleButton.heightAnchor.constraint(equalToConstant: 30),
-            editTitleButton.widthAnchor.constraint(equalToConstant: 350),
-            editTitleButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            editTitleButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            editTitleButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
-             */
         ]
 
         NSLayoutConstraint.activate(constraints)
     }
 
 }
+
+protocol animationDelgate: AnyObject {
+
+    func animateView(avatarView: UIImageView)
+
+}
+
