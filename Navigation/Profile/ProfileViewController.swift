@@ -58,6 +58,13 @@ class ProfileViewController: UIViewController {
     private let tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
+
+      #if DEBUG
+        table.backgroundColor = .systemPink
+      #else
+        table.backgroundColor = .white
+      #endif
+
         return table
     } ()
 
@@ -66,7 +73,12 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"
+
+       #if DEBUG
+        view.backgroundColor = .systemPink
+       #else
         view.backgroundColor = .white
+       #endif
 
         setupUI()
         setupTable()
