@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import StorageService
+import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
 
@@ -115,9 +116,17 @@ class PostTableViewCell: UITableViewCell {
     func updateData(post: Post) {
         authorLabel.text = post.author
         descriptionLabel.text = post.description
-        imageV.image = UIImage(named: post.image)
+       // imageV.image = UIImage(named: post.image)
         likesLabel.text =  "Likes: " + String(post.likes)
         viewsLabel.text =  "Views: " + String(post.views)
+
+        let sourceImage = UIImage(named: post.image)
+
+        let processor = ImageProcessor()
+        processor.processImage(sourceImage: sourceImage!, filter: .tonal) { image in
+            imageV.image = image
+        }
+
     }
 
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class ProfileHeaderView: UIView {
 
@@ -134,7 +135,8 @@ class ProfileHeaderView: UIView {
 
         translatesAutoresizingMaskIntoConstraints = false
         setupSubView()
-        setupConstraints()
+       // setupConstraints()
+        setupConstraintsSnapKit()
     }
 
     required init?(coder: NSCoder) {
@@ -187,6 +189,49 @@ class ProfileHeaderView: UIView {
         self.delegate?.animateView(avatarView: avatarView)
     }
 
+    
+    private func setupConstraintsSnapKit() {
+
+        avatarView.snp.makeConstraints {(maker) -> Void in
+            maker.height.width.equalTo(100)
+            maker.leading.equalToSuperview().inset(16)
+            maker.top.equalToSuperview().inset(30)
+        }
+
+        nameLabel.snp.makeConstraints {(maker) -> Void in
+            maker.height.equalTo(50)
+            maker.width.equalTo(150)
+            maker.leading.greaterThanOrEqualTo(avatarView).inset(150)
+            maker.top.equalToSuperview().inset(30)
+        }
+
+        statusLabel.snp.makeConstraints {(maker) -> Void in
+            maker.height.equalTo(50)
+            maker.width.equalTo(300)
+            maker.leading.greaterThanOrEqualTo(avatarView).inset(150)
+            maker.top.greaterThanOrEqualTo(nameLabel).inset(30)
+        }
+
+        statusTextField.snp.makeConstraints {(maker) -> Void in
+            maker.height.equalTo(40)
+            maker.width.equalTo(220)
+            maker.leading.greaterThanOrEqualTo(statusLabel)
+            maker.top.greaterThanOrEqualTo(statusLabel).inset(50)
+        }
+
+        statusButton.snp.makeConstraints {(maker) -> Void in
+            maker.height.equalTo(50)
+            maker.width.equalTo(350)
+            maker.leading.equalToSuperview().inset(10)
+            maker.top.greaterThanOrEqualTo(statusTextField).inset(50)
+            maker.trailing.equalToSuperview().inset(10)
+            maker.bottom.equalToSuperview()
+        }
+
+
+
+
+    }
 
     private func setupConstraints() {
 
