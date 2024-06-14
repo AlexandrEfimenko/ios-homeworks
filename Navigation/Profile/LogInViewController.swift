@@ -178,8 +178,30 @@ class LogInViewController: UIViewController {
     @objc func TapLoginButton(button: UIButton) {
         changeStateButton(button: button)
 
-        let profileViewController = ProfileViewController()
-        navigationController?.pushViewController(profileViewController, animated: true)
+        if loginTextField.text != nil {
+
+            #if DEBUG
+             let userService = TestUserService()
+            #else
+             let userService = CurrentUserService()
+            #endif
+
+            let currentUser = userService.getUser(login: loginTextField.text!)
+
+            if let currentUser {
+                let profileViewController = ProfileViewController(currentUser: currentUser)
+                navigationController?.pushViewController(profileViewController, animated: true)
+            } else {
+                let alertController = UIAlertController(title: "Ошибка авторизации", message: "проверьте правильность логина и пароля", preferredStyle: .alert)
+                let action = UIAlertAction(title: "ОК", style: .default)
+                alertController.addAction(action)
+
+                present(alertController, animated: true)
+
+                button.alpha = 1.0
+            }
+
+        }
     }
 
 

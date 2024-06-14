@@ -25,6 +25,10 @@
 		1F776F8D2C0150DF00AB2778 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F776F872C0150DF00AB2778 /* StorageService.framework */; };
 		1F776F8E2C0150DF00AB2778 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F776F872C0150DF00AB2778 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F776F932C0150EE00AB2778 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F044C232A6F1311005195A8 /* Post.swift */; };
+		1FEE64DD2C18F67000E8DF05 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE64DC2C18F67000E8DF05 /* User.swift */; };
+		1FEE64DF2C18F78400E8DF05 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE64DE2C18F78400E8DF05 /* UserService.swift */; };
+		1FEE64E12C18F83A00E8DF05 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE64E02C18F83A00E8DF05 /* CurrentUserService.swift */; };
+		1FF4E9802C1C9EA40058C3DD /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4E97F2C1C9EA40058C3DD /* TestUserService.swift */; };
 		1FF8D2AB2B87D98D00466935 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF8D2AA2B87D98D00466935 /* Posts.swift */; };
 		1FF8D2AD2B87E01E00466935 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF8D2AC2B87E01E00466935 /* PostTableViewCell.swift */; };
 		1FFE64F62B8E912C00B2D8DF /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFE64F52B8E912B00B2D8DF /* UITableView+Extensions.swift */; };
@@ -74,6 +78,10 @@
 		1F64F6B72A680F4300A88A75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F776F872C0150DF00AB2778 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F776F892C0150DF00AB2778 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
+		1FEE64DC2C18F67000E8DF05 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		1FEE64DE2C18F78400E8DF05 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		1FEE64E02C18F83A00E8DF05 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
+		1FF4E97F2C1C9EA40058C3DD /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		1FF8D2AA2B87D98D00466935 /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
 		1FF8D2AC2B87E01E00466935 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		1FFE64F52B8E912B00B2D8DF /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -142,6 +150,10 @@
 				1F098CA32BAA1AF00088FD08 /* PhotosViewController.swift */,
 				1F098CA52BAA1CBB0088FD08 /* PhotosCollectionViewCell.swift */,
 				1F098CA72BAA289A0088FD08 /* Photos.swift */,
+				1FEE64DC2C18F67000E8DF05 /* User.swift */,
+				1FEE64DE2C18F78400E8DF05 /* UserService.swift */,
+				1FEE64E02C18F83A00E8DF05 /* CurrentUserService.swift */,
+				1FF4E97F2C1C9EA40058C3DD /* TestUserService.swift */,
 				1F64F6B22A680F4300A88A75 /* Assets.xcassets */,
 				1F64F6B42A680F4300A88A75 /* LaunchScreen.storyboard */,
 				1F64F6B72A680F4300A88A75 /* Info.plist */,
@@ -217,7 +229,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					1F64F6A52A680F4100A88A75 = {
 						CreatedOnToolsVersion = 14.2;
@@ -275,9 +287,13 @@
 				1F0A69C12B813A34007D8077 /* LogInViewController.swift in Sources */,
 				1F044C1E2A6F0C97005195A8 /* FeedViewController.swift in Sources */,
 				1F098CA82BAA289A0088FD08 /* Photos.swift in Sources */,
+				1FEE64DD2C18F67000E8DF05 /* User.swift in Sources */,
+				1FEE64DF2C18F78400E8DF05 /* UserService.swift in Sources */,
 				1F044C262A6F1BE6005195A8 /* InfoViewController.swift in Sources */,
 				1FF8D2AB2B87D98D00466935 /* Posts.swift in Sources */,
 				1FFE64F62B8E912C00B2D8DF /* UITableView+Extensions.swift in Sources */,
+				1FEE64E12C18F83A00E8DF05 /* CurrentUserService.swift in Sources */,
+				1FF4E9802C1C9EA40058C3DD /* TestUserService.swift in Sources */,
 				1F64F6AC2A680F4100A88A75 /* SceneDelegate.swift in Sources */,
 				1F098CA22BA594070088FD08 /* PhotosTableViewCell.swift in Sources */,
 				1F044C222A6F0DC0005195A8 /* PostViewController.swift in Sources */,
@@ -322,6 +338,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -383,6 +400,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
