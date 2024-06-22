@@ -9,10 +9,9 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    var profileHeader: ProfileHeaderView = {
-       let headerView = ProfileHeaderView()
-       return headerView
-    }()
+    private var currentUser: User?
+
+    var profileHeader: ProfileHeaderView
 
     private var avatarViewCenterOrigin = CGPoint()
     private var avatarViewOld = UIImageView()
@@ -69,7 +68,19 @@ class ProfileViewController: UIViewController {
     } ()
 
 
+    init(currentUser: User) {
+        self.currentUser = currentUser
 
+        self.profileHeader = ProfileHeaderView(user: currentUser)
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"

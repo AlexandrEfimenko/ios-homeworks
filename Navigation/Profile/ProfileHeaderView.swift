@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class ProfileHeaderView: UIView {
-
     var delegate: animationDelgate?
 
     private var statusText: String = ""
@@ -51,7 +50,7 @@ class ProfileHeaderView: UIView {
         let label = UILabel()
 
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Hipster Cat"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
 
@@ -131,9 +130,14 @@ class ProfileHeaderView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+    }
+
+    convenience init(user: User) {
+        self.init(frame: CGRect.zero)
+        //self.currentUser = user
 
         translatesAutoresizingMaskIntoConstraints = false
-        setupSubView()
+        setupSubView(currentUser: user)
         setupConstraints()
     }
 
@@ -142,7 +146,12 @@ class ProfileHeaderView: UIView {
     }
 
 
-    private func setupSubView() {
+
+    private func setupSubView(currentUser: User) {
+        nameLabel.text = currentUser.fullName
+        statusLabel.text = currentUser.status
+        avatarView.image = currentUser.avatar
+
         addSubview(nameLabel)
         addSubview(statusLabel)
         addSubview(statusTextField)
@@ -155,7 +164,7 @@ class ProfileHeaderView: UIView {
                 width: UIView.noIntrinsicMetric,
                 height: 44.0
             )
-        }
+    }
 
 
     @objc private func TapStatusButton() {
