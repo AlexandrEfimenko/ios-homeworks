@@ -89,7 +89,7 @@ class LogInViewController: UIViewController {
         //button.titleLabel?.textColor = .white
         // button.titleLabel?.textAlignment = .center
         // button.backgroundImage(for: UIControl.State.disabled)
-        button.addTarget(self, action: #selector(TapLoginButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tapLoginButton), for: .touchUpInside)
 
         button.isUserInteractionEnabled = true
 
@@ -175,9 +175,7 @@ class LogInViewController: UIViewController {
     }
 
 
-    @objc func TapLoginButton(button: UIButton) {
-        changeStateButton(button: button)
-
+    @objc func tapLoginButton(button: UIButton) {
         if loginTextField.text != nil {
 
             #if DEBUG
@@ -192,24 +190,14 @@ class LogInViewController: UIViewController {
                 let profileViewController = ProfileViewController(currentUser: currentUser)
                 navigationController?.pushViewController(profileViewController, animated: true)
             } else {
+                button.alpha = 0.5
                 let alertController = UIAlertController(title: "Ошибка авторизации", message: "проверьте правильность логина и пароля", preferredStyle: .alert)
-                let action = UIAlertAction(title: "ОК", style: .default)
+                let action = UIAlertAction(title: "ОК", style: .default){_ in button.alpha = 1.0}
                 alertController.addAction(action)
 
                 present(alertController, animated: true)
-
-                button.alpha = 1.0
             }
 
-        }
-    }
-
-
-    private func changeStateButton(button: UIButton){
-        if button.alpha == 1.0 {
-            button.alpha = 0.8
-        } else {
-           button.alpha = 1.0
         }
     }
 
