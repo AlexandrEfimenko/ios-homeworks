@@ -26,11 +26,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(named: "house.fill"), tag: 0)
 
 
-        let profileViewController = LogInViewController()
-        profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "person.fill"), tag: 1)
+        let loginFactory = MyLoginFactory()
+
+        let loginViewController = LogInViewController()
+        loginViewController.loginDelegate = loginFactory.makeLoginInspector()
+
+        loginViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "person.fill"), tag: 1)
 
 
-        let viewControllers = [feedViewController, profileViewController]
+        let viewControllers = [feedViewController, loginViewController]
 
         let navigationControllers = viewControllers.map {
             UINavigationController(rootViewController: $0)}

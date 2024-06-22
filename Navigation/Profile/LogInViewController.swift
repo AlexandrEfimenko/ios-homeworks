@@ -108,6 +108,9 @@ class LogInViewController: UIViewController {
     } ()
 
 
+    var loginDelegate: LoginViewControllerDelegate?
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -136,6 +139,7 @@ class LogInViewController: UIViewController {
        // loginView.frame = view.frame
     }
 
+    
 
     private func setupConstraints() {
         let safeArea = view.safeAreaLayoutGuide
@@ -176,29 +180,35 @@ class LogInViewController: UIViewController {
 
 
     @objc func tapLoginButton(button: UIButton) {
-        if loginTextField.text != nil {
 
-            #if DEBUG
-             let userService = TestUserService()
-            #else
-             let userService = CurrentUserService()
-            #endif
+        guard let loginDelegate = self.loginDelegate else { return }
 
-            let currentUser = userService.getUser(login: loginTextField.text!)
+        if  let login = loginTextField.text, let password = passwordTextField.text  {
 
-            if let currentUser {
-                let profileViewController = ProfileViewController(currentUser: currentUser)
-                navigationController?.pushViewController(profileViewController, animated: true)
-            } else {
-                button.alpha = 0.5
-                let alertController = UIAlertController(title: "Ошибка авторизации", message: "проверьте правильность логина и пароля", preferredStyle: .alert)
-                let action = UIAlertAction(title: "ОК", style: .default){_ in button.alpha = 1.0}
-                alertController.addAction(action)
+            if loginDelegate.check(login: login, password: password) {
 
-                present(alertController, animated: true)
+               #if DEBUG
+                  let userService = TestUserService()
+               #else
+                  let userService = CurrentUserService()
+               #endif
+
+                let currentUser = userService.getUser(login: login)
+
+                if let currentUser {
+                    let profileViewController = ProfileViewController(currentUser: currentUser)
+                    navigationController?.pushViewController(profileViewController, animated: true)
+                    return
+                }
             }
-
         }
+
+        button.alpha = 0.5
+        let alertController = UIAlertController(title: "Ошибка авторизации", message: "проверьте правильность логина и пароля", preferredStyle: .alert)
+        let action = UIAlertAction(title: "ОК", style: .default){_ in button.alpha = 1.0}
+        alertController.addAction(action)
+
+        present(alertController, animated: true)
     }
 
 
