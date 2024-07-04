@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
 
-    fileprivate lazy var photos: [UIImage?] = Photos.getPhotos()
+    private var imagePublisherFacade: ImagePublisherFacade?
+    fileprivate lazy var photos: [UIImage?] = []
 
     private let collectionView: UICollectionView = {
          let viewLayout = UICollectionViewFlowLayout()
@@ -30,6 +32,21 @@ class PhotosViewController: UIViewController {
      }()
 
 
+    convenience init(imagePublisherFacade: ImagePublisherFacade) {
+        self.init(nibName: nil, bundle: nil)
+        self.imagePublisherFacade = imagePublisherFacade
+    }
+    
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,10 +57,15 @@ class PhotosViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false
+
+        imagePublisherFacade?.subscribe(self)
+        imagePublisherFacade?.addImagesWithTimer(time: 0.5, repeat: 20, userImages: Photos.getPhotos())
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
+
+        imagePublisherFacade?.removeSubscription(for: self)
     }
 
 
@@ -157,4 +179,13 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
 
 
 
+}
+
+extension PhotosViewController: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        self.photos = images
+        collectionView.reloadData()
+    }
+    
+    
 }
