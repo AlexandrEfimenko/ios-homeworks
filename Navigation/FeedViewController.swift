@@ -11,23 +11,38 @@ import StorageService
 class FeedViewController: UIViewController {
 
     private lazy var postButton: UIButton = {
-           let button = UIButton()
-           button.translatesAutoresizingMaskIntoConstraints = false
-           button.setTitle("Пост 1", for: .normal)
-           button.setTitleColor(.systemBlue, for: .normal)
 
-           button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+        let button = CustomButton(title: "Пост 1", backgroundColor: nil, titleColor: .systemBlue,
+            action:  {
+            let posts = Posts.getPosts()
+            let post: Post = posts[0]
+
+            let postViewController = PostViewController()
+            postViewController.post = post
+            postViewController.modalTransitionStyle = .flipHorizontal // flipHorizontal
+            postViewController.modalPresentationStyle = .fullScreen // pageSheet
+
+            self.navigationController?.pushViewController(postViewController, animated: true)
+           }
+        )
 
            return button
        }()
 
     private lazy var button2: UIButton = {
-           let button = UIButton()
-           button.translatesAutoresizingMaskIntoConstraints = false
-           button.setTitle("Пост 2", for: .normal)
-           button.setTitleColor(.systemBlue, for: .normal)
+        let button = CustomButton(title: "Пост 2", backgroundColor: nil, titleColor: .systemBlue,
+            action:  {
+            let posts = Posts.getPosts()
+            let post: Post = posts[1]
 
-           button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+            let postViewController = PostViewController()
+            postViewController.post = post
+            postViewController.modalTransitionStyle = .flipHorizontal // flipHorizontal
+            postViewController.modalPresentationStyle = .fullScreen // pageSheet
+
+            self.navigationController?.pushViewController(postViewController, animated: true)
+           }
+        )
 
            return button
        }()
@@ -45,36 +60,91 @@ class FeedViewController: UIViewController {
        }()
 
 
+     private lazy var passwordTitle: UILabel = {
+           let view = UILabel()
+           view.translatesAutoresizingMaskIntoConstraints = false
+           view.text = "Пароль:"
+           return view
+       }()
+
+    private lazy var passwordView: UITextField = {
+           let view = UITextField()
+           view.translatesAutoresizingMaskIntoConstraints = false
+           view.placeholder = "Введите пароль..."
+           view.layer.borderWidth = 2.0
+           return view
+       }()
+
+    private lazy var passwordCheckLabel: UILabel = {
+           let view = UILabel()
+           view.translatesAutoresizingMaskIntoConstraints = false
+           view.textColor = .red
+           return view
+       }()
+
+
+    private lazy var checkGuessButton: UIButton = {
+        let button = CustomButton(title: "check Guess", backgroundColor: .systemBlue, titleColor: .white,
+            action:  {
+
+            if let textPassword = self.passwordView.text {
+                let isValid = FeedModel.check(word: textPassword)
+
+                if isValid {
+                    self.passwordCheckLabel.text = "пароль верный"
+                    self.passwordCheckLabel.textColor = .green
+                } else {
+                    self.passwordCheckLabel.text = "пароль не верный"
+                    self.passwordCheckLabel.textColor = .red
+                }
+
+            } else {
+                self.passwordCheckLabel.text = "пароль пустой"
+                self.passwordCheckLabel.textColor = .red
+            }
+
+           }
+        )
+
+           return button
+       }()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "Лента"
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .white
 
+        view.addSubview(passwordTitle)
+        view.addSubview(passwordView)
+        view.addSubview(passwordCheckLabel)
+        view.addSubview(checkGuessButton)
         view.addSubview(stackView)
         setupConstraints()
     }
     
 
-    @objc func buttonPressed(_ sender: UIButton) {
-        let posts = Posts.getPosts()
-
-        let post: Post = posts[0]
-
-        let postViewController = PostViewController()
-        postViewController.post = post
-        postViewController.modalTransitionStyle = .flipHorizontal // flipHorizontal
-        postViewController.modalPresentationStyle = .fullScreen // pageSheet
-
-        navigationController?.pushViewController(postViewController, animated: true)
-      }
-    
 
     fileprivate func setupConstraints() {
         let safeAreaLayoutGuide = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
+            passwordTitle.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5.0),
+            passwordTitle.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10.0),
+            passwordTitle.widthAnchor.constraint(equalToConstant: 70),
+
+            passwordView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10.0),
+            passwordView.leadingAnchor.constraint(equalTo: passwordTitle.trailingAnchor, constant: 5.0),
+            passwordView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10.0),
+            passwordView.widthAnchor.constraint(equalToConstant: 100),
+
+            checkGuessButton.topAnchor.constraint(equalTo: passwordView.bottomAnchor, constant: 10.0),
+            checkGuessButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+
+            passwordCheckLabel.topAnchor.constraint(equalTo: checkGuessButton.bottomAnchor, constant: 10.0),
+            passwordCheckLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+
             stackView.leadingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.leadingAnchor,
                 constant: 10.0

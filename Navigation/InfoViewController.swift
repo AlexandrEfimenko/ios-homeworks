@@ -10,23 +10,31 @@ import UIKit
 class InfoViewController: UIViewController {
 
     private lazy var myButton: UIButton = {
-           let button = UIButton()
-           button.translatesAutoresizingMaskIntoConstraints = false
-           button.setTitle("Alert", for: .normal)
-           button.setTitleColor(.systemBlue, for: .normal)
 
-           button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+        let button = CustomButton(title: "Alert", backgroundColor: nil, titleColor: .systemBlue, 
+            action:  {
+
+            let alert = UIAlertController(title: "Понравилось ДЗ?", message: "Доп описание", preferredStyle: .actionSheet)
+
+            alert.addAction(UIAlertAction(title: "Да", style: .default, handler: {action in print("Вы нажали: \(action.title!)")}))
+            alert.addAction(UIAlertAction(title: "Нет", style: .destructive, handler: {action in print("Вы нажали: \(action.title!)")}))
+            alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: {action in print("Вы нажали: \(action.title!)"); self.dismiss(animated: true)}))
+
+            self.present(alert, animated: true)
+
+            }
+        )
 
            return button
        }()
 
     private lazy var buttonClose: UIButton = {
-           let button = UIButton()
-           button.translatesAutoresizingMaskIntoConstraints = false
-           button.setTitle("Close", for: .normal)
-           button.setTitleColor(.yellow, for: .normal)
+        let button = CustomButton(title: "Close", backgroundColor: nil, titleColor: .yellow,
+            action:  {
 
-           button.addTarget(self, action: #selector(buttonPressedClose(_:)), for: .touchUpInside)
+            self.dismiss(animated: true)
+          }
+        )
 
            return button
        }()
@@ -44,22 +52,7 @@ class InfoViewController: UIViewController {
 
         сonstraintButton()
     }
-    
 
-    @objc func buttonPressed(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Понравилось ДЗ?", message: "Доп описание", preferredStyle: .actionSheet)
-
-        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: {action in print("Вы нажали: \(action.title!)")}))
-        alert.addAction(UIAlertAction(title: "Нет", style: .destructive, handler: {action in print("Вы нажали: \(action.title!)")}))
-        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: {action in print("Вы нажали: \(action.title!)"); self.dismiss(animated: true)}))
-
-        present(alert, animated: true)
-    }
-
-
-    @objc func buttonPressedClose(_ sender: UIButton) {
-       dismiss(animated: true)
-    }
 
     fileprivate func сonstraintButton() {
         let safeAreaLayoutGuide = view.safeAreaLayoutGuide
