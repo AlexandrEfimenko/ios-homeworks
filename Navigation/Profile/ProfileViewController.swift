@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class ProfileViewController: UIViewController {
 
@@ -210,7 +211,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = PhotosViewController()
+        let publisherFacade = ImagePublisherFacade()
+        let vc = PhotosViewController(imagePublisherFacade: publisherFacade)
         navigationController?.pushViewController(vc, animated: true)
     }
 
