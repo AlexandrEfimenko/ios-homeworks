@@ -10,9 +10,7 @@ import StorageService
 
 class FeedViewController: UIViewController {
 
-    private lazy var postButton: UIButton = {
-
-        let button = CustomButton(title: "Пост 1", backgroundColor: nil, titleColor: .systemBlue,
+    private lazy var postButton = CustomButton(title: "Пост 1", backgroundColor: nil, titleColor: .systemBlue,
             action:  {
             let posts = Posts.getPosts()
             let post: Post = posts[0]
@@ -26,11 +24,8 @@ class FeedViewController: UIViewController {
            }
         )
 
-           return button
-       }()
 
-    private lazy var button2: UIButton = {
-        let button = CustomButton(title: "Пост 2", backgroundColor: nil, titleColor: .systemBlue,
+    private lazy var button2 = CustomButton(title: "Пост 2", backgroundColor: nil, titleColor: .systemBlue,
             action:  {
             let posts = Posts.getPosts()
             let post: Post = posts[1]
@@ -44,8 +39,7 @@ class FeedViewController: UIViewController {
            }
         )
 
-           return button
-       }()
+
 
     private lazy var stackView: UIStackView = {
            let stack = UIStackView()
@@ -83,8 +77,7 @@ class FeedViewController: UIViewController {
        }()
 
 
-    private lazy var checkGuessButton: UIButton = {
-        let button = CustomButton(title: "check Guess", backgroundColor: .systemBlue, titleColor: .white,
+    private lazy var checkGuessButton = CustomButton(title: "check Guess", backgroundColor: .systemBlue, titleColor: .white,
             action:  {
 
             if let textPassword = self.passwordView.text {
@@ -106,8 +99,7 @@ class FeedViewController: UIViewController {
            }
         )
 
-           return button
-       }()
+
 
 
     override func viewDidLoad() {
