@@ -80,6 +80,7 @@ class LogInViewController: UIViewController {
 
     private lazy var loginButton: UIButton = {
         let button = UIButton()
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Log In", for: .normal)
         button.setTitle("Log In...", for: .selected)
