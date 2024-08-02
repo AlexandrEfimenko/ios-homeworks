@@ -10,8 +10,8 @@ import Foundation
 class FeedModel {
     private static let secretWord = "Apple"
 
-    static func check(word: String) -> Bool {
-        return word == secretWord
+    static func getSecretWord() -> String {
+        return secretWord
     }
 
 }

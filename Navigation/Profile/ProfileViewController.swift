@@ -7,12 +7,13 @@
 
 import UIKit
 import iOSIntPackage
+import StorageService
 
 class ProfileViewController: UIViewController {
-
-    private var currentUser: User?
-
+    let viewModel: ProfileViewModel
     var profileHeader: ProfileHeaderView
+
+    private var posts: [Post] = []
 
     private var avatarViewCenterOrigin = CGPoint()
     private var avatarViewOld = UIImageView()
@@ -52,8 +53,6 @@ class ProfileViewController: UIViewController {
 
 
 
-    private let posts = Posts.getPosts()
-
 
     private let tableView: UITableView = {
         let table = UITableView()
@@ -69,10 +68,10 @@ class ProfileViewController: UIViewController {
     } ()
 
 
-    init(currentUser: User) {
-        self.currentUser = currentUser
-
-        self.profileHeader = ProfileHeaderView(user: currentUser)
+    init(profileModelView: ProfileViewModel) {
+        self.viewModel = profileModelView
+        self.profileHeader = ProfileHeaderView(user: viewModel.currentUser!)
+        self.posts = viewModel.getPosts()
 
         super.init(nibName: nil, bundle: nil)
     }

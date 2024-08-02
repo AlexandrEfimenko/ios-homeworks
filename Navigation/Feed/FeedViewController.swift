@@ -10,6 +10,8 @@ import StorageService
 
 class FeedViewController: UIViewController {
 
+    let viewModel: FeedViewModel
+
     private lazy var postButton = CustomButton(title: "Пост 1", backgroundColor: nil, titleColor: .systemBlue,
             action:  {
             let posts = Posts.getPosts()
@@ -81,7 +83,7 @@ class FeedViewController: UIViewController {
             action:  {
 
             if let textPassword = self.passwordView.text {
-                let isValid = FeedModel.check(word: textPassword)
+                let isValid = self.viewModel.check(word: textPassword)
 
                 if isValid {
                     self.passwordCheckLabel.text = "пароль верный"
@@ -101,7 +103,16 @@ class FeedViewController: UIViewController {
 
 
 
+    init(viewModel: FeedViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

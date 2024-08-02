@@ -126,8 +126,12 @@ class LogInViewController: UIViewController {
 
         navigationController?.navigationBar.isHidden = true
         setupConstraints()
+
+        loginTextField.text = "Alex" // для быстрого тестирования todo
+        passwordTextField.text = "123"
     }
-    
+
+
     override func viewWillAppear(_ animated: Bool) {
         setupKeyboardObservers()
     }
@@ -181,26 +185,20 @@ class LogInViewController: UIViewController {
 
 
     @objc func tapLoginButton(button: UIButton) {
-
         guard let loginDelegate = self.loginDelegate else { return }
 
         if  let login = loginTextField.text, let password = passwordTextField.text  {
-
             if loginDelegate.check(login: login, password: password) {
 
-               #if DEBUG
-                  let userService = TestUserService()
-               #else
-                  let userService = CurrentUserService()
-               #endif
+                let profileViewModel = ProfileViewModel()
+                let currentUser: User? = profileViewModel.getCurrentUser(login: login)
 
-                let currentUser = userService.getUser(login: login)
-
-                if let currentUser {
-                    let profileViewController = ProfileViewController(currentUser: currentUser)
+                if currentUser != nil {
+                    let profileViewController = ProfileViewController(profileModelView: profileViewModel)
                     navigationController?.pushViewController(profileViewController, animated: true)
                     return
                 }
+
             }
         }
 
