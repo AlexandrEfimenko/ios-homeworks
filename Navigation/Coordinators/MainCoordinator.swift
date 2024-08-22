@@ -12,15 +12,15 @@ class MainCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     lazy var rootViewController: UIViewController = UITabBarController()
     lazy var feedCoordinator  = FeedCoordinator()
-    lazy var loginCoordinator = LoginCoordinator()
+    lazy var profileCoordinator = ProfileCoordinator()
 
 
     func start() -> UIViewController {
         feedCoordinator.parentCoordinator = self
-        loginCoordinator.parentCoordinator = self
+        profileCoordinator.parentCoordinator = self
 
         let feedViewController = feedCoordinator.start()
-        let loginViewController = loginCoordinator.start()
+        let loginViewController = profileCoordinator.start()
         let navigationControllers = [feedViewController, loginViewController]
 
 

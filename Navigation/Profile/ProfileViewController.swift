@@ -51,6 +51,16 @@ class ProfileViewController: UIViewController {
         return button
     }()
 
+    private lazy var backToLoginViewButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isUserInteractionEnabled = true
+        button.setTitle("<< Log off", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        button.addTarget(self, action: #selector(buttonPressedLoginView), for: .touchUpInside)
+
+        return button
+    }()
 
 
 
@@ -97,10 +107,12 @@ class ProfileViewController: UIViewController {
 
     private func setupUI() {
 
+        view.addSubview(backToLoginViewButton)
         view.addSubview(animationView)
 
         animationView.addSubview(tableView)
         animationView.addSubview(hiddenAnimateButton)
+        animationView.addSubview(backToLoginViewButton)
 
         profileHeader.delegate = self
 
@@ -138,6 +150,12 @@ class ProfileViewController: UIViewController {
             hiddenAnimateButton.trailingAnchor.constraint(equalTo: animationView.trailingAnchor, constant: -10),
             hiddenAnimateButton.heightAnchor.constraint(equalToConstant: 50),
             hiddenAnimateButton.widthAnchor.constraint(equalToConstant: 50),
+
+
+            backToLoginViewButton.leadingAnchor.constraint(equalTo: animationView.leadingAnchor, constant: 10),
+            hiddenAnimateButton.trailingAnchor.constraint(equalTo: animationView.trailingAnchor, constant: -10),
+            backToLoginViewButton.topAnchor.constraint(equalTo: animationView.topAnchor)
+
         ]
 
         NSLayoutConstraint.activate(constraints)
@@ -157,11 +175,17 @@ class ProfileViewController: UIViewController {
             }
 
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.cellId)
-
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.cellId)
 
         tableView.setAndLayout(headerView: profileHeader)
     }
+
+    @objc
+    private func buttonPressedLoginView() {
+        viewModel.isLogin = false
+        viewModel.onBackToRoot!()
+    }
+
 
 }
 

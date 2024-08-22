@@ -8,6 +8,7 @@
 import UIKit
 
 class LogInViewController: UIViewController {
+    let profileViewModel: ProfileViewModel
 
     private lazy var contentView: UIView  = {
         let contentView = UIView()
@@ -111,6 +112,15 @@ class LogInViewController: UIViewController {
 
     var loginDelegate: LoginViewControllerDelegate?
 
+    init(profileModelView: ProfileViewModel) {
+        self.profileViewModel = profileModelView
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,6 +144,10 @@ class LogInViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setupKeyboardObservers()
+
+        if profileViewModel.isLogin {
+            profileViewModel.onShowProfileView!()
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -190,12 +204,11 @@ class LogInViewController: UIViewController {
         if  let login = loginTextField.text, let password = passwordTextField.text  {
             if loginDelegate.check(login: login, password: password) {
 
-                let profileViewModel = ProfileViewModel()
                 let currentUser: User? = profileViewModel.getCurrentUser(login: login)
 
                 if currentUser != nil {
-                    let profileViewController = ProfileViewController(profileModelView: profileViewModel)
-                    navigationController?.pushViewController(profileViewController, animated: true)
+                    profileViewModel.isLogin = true
+                    profileViewModel.onShowProfileView!()
                     return
                 }
 

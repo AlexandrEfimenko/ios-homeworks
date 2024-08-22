@@ -11,11 +11,17 @@ import StorageService
 protocol ProfileViewModelProtocol {
     func getCurrentUser(login: String) -> User?
     func getPosts() -> [Post]
+    var onShowProfileView:  ( () ->Void )?  { get set }
+    var onBackToRoot: (()->Void)? { get set }
+    var isLogin: Bool { get set }
 }
 
 
 
 class ProfileViewModel: ProfileViewModelProtocol {
+    var onShowProfileView:  ( () ->Void )?  
+    var onBackToRoot:  ( () ->Void )?
+    var isLogin = false
 
     var currentUser: User?
 
@@ -35,6 +41,7 @@ class ProfileViewModel: ProfileViewModelProtocol {
     func getPosts() -> [Post] {
         Posts.getPosts()
     }
+
 
 
 }
