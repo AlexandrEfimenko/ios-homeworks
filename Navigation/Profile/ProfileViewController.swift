@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import iOSIntPackage
+import StorageService
 
 class ProfileViewController: UIViewController {
+    let viewModel: ProfileViewModel
+    var profileHeader: ProfileHeaderView
 
-    var profileHeader: ProfileHeaderView = {
-       let headerView = ProfileHeaderView()
-       return headerView
-    }()
+    private var posts: [Post] = []
 
     private var avatarViewCenterOrigin = CGPoint()
     private var avatarViewOld = UIImageView()
@@ -50,23 +51,55 @@ class ProfileViewController: UIViewController {
         return button
     }()
 
+    private lazy var backToLoginViewButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isUserInteractionEnabled = true
+        button.setTitle("<< Log off", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        button.addTarget(self, action: #selector(buttonPressedLoginView), for: .touchUpInside)
 
+        return button
+    }()
 
-    private let posts = Posts.getPosts()
 
 
     private let tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
+
+      #if DEBUG
+        table.backgroundColor = .systemPink
+      #else
+        table.backgroundColor = .white
+      #endif
+
         return table
     } ()
 
 
+    init(profileModelView: ProfileViewModel) {
+        self.viewModel = profileModelView
+        self.profileHeader = ProfileHeaderView(user: viewModel.currentUser!)
+        self.posts = viewModel.getPosts()
 
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"
+
+       #if DEBUG
+        view.backgroundColor = .systemPink
+       #else
         view.backgroundColor = .white
+       #endif
 
         setupUI()
         setupTable()
@@ -74,10 +107,12 @@ class ProfileViewController: UIViewController {
 
     private func setupUI() {
 
+        view.addSubview(backToLoginViewButton)
         view.addSubview(animationView)
 
         animationView.addSubview(tableView)
         animationView.addSubview(hiddenAnimateButton)
+        animationView.addSubview(backToLoginViewButton)
 
         profileHeader.delegate = self
 
@@ -115,6 +150,12 @@ class ProfileViewController: UIViewController {
             hiddenAnimateButton.trailingAnchor.constraint(equalTo: animationView.trailingAnchor, constant: -10),
             hiddenAnimateButton.heightAnchor.constraint(equalToConstant: 50),
             hiddenAnimateButton.widthAnchor.constraint(equalToConstant: 50),
+
+
+            backToLoginViewButton.leadingAnchor.constraint(equalTo: animationView.leadingAnchor, constant: 10),
+            hiddenAnimateButton.trailingAnchor.constraint(equalTo: animationView.trailingAnchor, constant: -10),
+            backToLoginViewButton.topAnchor.constraint(equalTo: animationView.topAnchor)
+
         ]
 
         NSLayoutConstraint.activate(constraints)
@@ -134,11 +175,17 @@ class ProfileViewController: UIViewController {
             }
 
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.cellId)
-
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.cellId)
 
         tableView.setAndLayout(headerView: profileHeader)
     }
+
+    @objc
+    private func buttonPressedLoginView() {
+        viewModel.isLogin = false
+        viewModel.onBackToRoot!()
+    }
+
 
 }
 
@@ -187,7 +234,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = PhotosViewController()
+        let publisherFacade = ImagePublisherFacade()
+        let vc = PhotosViewController(imagePublisherFacade: publisherFacade)
         navigationController?.pushViewController(vc, animated: true)
     }
 

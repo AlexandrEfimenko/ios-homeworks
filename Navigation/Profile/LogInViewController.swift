@@ -8,6 +8,7 @@
 import UIKit
 
 class LogInViewController: UIViewController {
+    let profileViewModel: ProfileViewModel
 
     private lazy var contentView: UIView  = {
         let contentView = UIView()
@@ -80,6 +81,7 @@ class LogInViewController: UIViewController {
 
     private lazy var loginButton: UIButton = {
         let button = UIButton()
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Log In", for: .normal)
         button.setTitle("Log In...", for: .selected)
@@ -89,7 +91,7 @@ class LogInViewController: UIViewController {
         //button.titleLabel?.textColor = .white
         // button.titleLabel?.textAlignment = .center
         // button.backgroundImage(for: UIControl.State.disabled)
-        button.addTarget(self, action: #selector(TapLoginButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tapLoginButton), for: .touchUpInside)
 
         button.isUserInteractionEnabled = true
 
@@ -108,6 +110,18 @@ class LogInViewController: UIViewController {
     } ()
 
 
+    var loginDelegate: LoginViewControllerDelegate?
+
+    init(profileModelView: ProfileViewModel) {
+        self.profileViewModel = profileModelView
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -122,10 +136,18 @@ class LogInViewController: UIViewController {
 
         navigationController?.navigationBar.isHidden = true
         setupConstraints()
+
+        loginTextField.text = "Alex" // для быстрого тестирования todo
+        passwordTextField.text = "123"
     }
-    
+
+
     override func viewWillAppear(_ animated: Bool) {
         setupKeyboardObservers()
+
+        if profileViewModel.isLogin {
+            profileViewModel.onShowProfileView!()
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -136,6 +158,7 @@ class LogInViewController: UIViewController {
        // loginView.frame = view.frame
     }
 
+    
 
     private func setupConstraints() {
         let safeArea = view.safeAreaLayoutGuide
@@ -175,20 +198,29 @@ class LogInViewController: UIViewController {
     }
 
 
-    @objc func TapLoginButton(button: UIButton) {
-        changeStateButton(button: button)
+    @objc func tapLoginButton(button: UIButton) {
+        guard let loginDelegate = self.loginDelegate else { return }
 
-        let profileViewController = ProfileViewController()
-        navigationController?.pushViewController(profileViewController, animated: true)
-    }
+        if  let login = loginTextField.text, let password = passwordTextField.text  {
+            if loginDelegate.check(login: login, password: password) {
 
+                let currentUser: User? = profileViewModel.getCurrentUser(login: login)
 
-    private func changeStateButton(button: UIButton){
-        if button.alpha == 1.0 {
-            button.alpha = 0.8
-        } else {
-           button.alpha = 1.0
+                if currentUser != nil {
+                    profileViewModel.isLogin = true
+                    profileViewModel.onShowProfileView!()
+                    return
+                }
+
+            }
         }
+
+        button.alpha = 0.5
+        let alertController = UIAlertController(title: "Ошибка авторизации", message: "проверьте правильность логина и пароля", preferredStyle: .alert)
+        let action = UIAlertAction(title: "ОК", style: .default){_ in button.alpha = 1.0}
+        alertController.addAction(action)
+
+        present(alertController, animated: true)
     }
 
 

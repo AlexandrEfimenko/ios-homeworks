@@ -6,9 +6,24 @@
 //
 
 import UIKit
+import StorageService
+
 
 class PostViewController: UIViewController {
+    let viewModel: PostViewModel
+
     var post: Post = Post(author: "", description: "", image: "", likes: 0, views: 0)
+
+    init(viewModel: PostViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,21 +31,21 @@ class PostViewController: UIViewController {
         title = post.author
         view.backgroundColor = .systemGray4
 
-        let myButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(buttonPressed))
+        let buttonShowInfo   = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(buttonPressedShowInfo))
+        let buttonToRoot = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(buttonPressedToRoot))
 
-        navigationItem.rightBarButtonItem = myButton
+        navigationItem.rightBarButtonItem = buttonShowInfo
+        navigationItem.leftBarButtonItem = buttonToRoot
     }
     
 
-    @objc func buttonPressed() {
+    @objc func buttonPressedShowInfo() {
+        viewModel.onShowInfo?()
+    }
 
-        let infoViewController = InfoViewController()
-
-        infoViewController.modalTransitionStyle = .coverVertical // flipHorizontal
-        infoViewController.modalPresentationStyle = .pageSheet // pageSheet
-
-        present(infoViewController, animated: true)
-
+    @objc func buttonPressedToRoot() {
+        viewModel.onBackToRoot?()
+        print("back to root")
     }
 
 }

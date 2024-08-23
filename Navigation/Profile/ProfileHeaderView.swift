@@ -9,13 +9,12 @@ import Foundation
 import UIKit
 
 class ProfileHeaderView: UIView {
-
     var delegate: animationDelgate?
 
     private var statusText: String = ""
 
     private lazy var newV: UIView = {
-        let line =  UIView()
+        let line = UIView()
         line.translatesAutoresizingMaskIntoConstraints = false
         line.backgroundColor = .lightGray
 
@@ -51,7 +50,7 @@ class ProfileHeaderView: UIView {
         let label = UILabel()
 
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Hipster Cat"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
 
@@ -92,37 +91,25 @@ class ProfileHeaderView: UIView {
     private lazy var statusButton: UIButton = {
         //let button = UIButton(frame: CGRect(x: 16, y: 250, width: 350, height: 50))
 
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .systemBlue
-        button.setTitle("Show status", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        let button = CustomButton(title: "Show status", backgroundColor: .systemBlue, titleColor: .white, action:  { print(self.statusText)} )
 
         button.layer.cornerRadius = 4
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
         button.layer.shadowRadius = 4
         button.layer.shadowOpacity = 0.7
         button.layer.shadowColor = UIColor.black.cgColor
-
-        button.addTarget(self, action: #selector(TapStatusButton), for: .touchUpInside)
 
         return button
     }()
 
     private lazy var editTitleButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .orange
-        button.setTitle("Edit title", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        let button = CustomButton(title: "Edit title", backgroundColor: .orange, titleColor: .white, action:  { print("editTitleButton")} )
 
         button.layer.cornerRadius = 4
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
         button.layer.shadowRadius = 4
         button.layer.shadowOpacity = 0.7
         button.layer.shadowColor = UIColor.black.cgColor
-
-        button.addTarget(self, action: #selector(TapEditTitleButton), for: .touchUpInside)
 
         return button
     }()
@@ -131,9 +118,14 @@ class ProfileHeaderView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+    }
+
+    convenience init(user: User) {
+        self.init(frame: CGRect.zero)
+        //self.currentUser = user
 
         translatesAutoresizingMaskIntoConstraints = false
-        setupSubView()
+        setupSubView(currentUser: user)
         setupConstraints()
     }
 
@@ -142,7 +134,12 @@ class ProfileHeaderView: UIView {
     }
 
 
-    private func setupSubView() {
+
+    private func setupSubView(currentUser: User) {
+        nameLabel.text = currentUser.fullName
+        statusLabel.text = currentUser.status
+        avatarView.image = currentUser.avatar
+
         addSubview(nameLabel)
         addSubview(statusLabel)
         addSubview(statusTextField)
@@ -155,15 +152,6 @@ class ProfileHeaderView: UIView {
                 width: UIView.noIntrinsicMetric,
                 height: 44.0
             )
-        }
-
-
-    @objc private func TapStatusButton() {
-        print(statusText)
-    }
-
-    @objc private func TapEditTitleButton() {
-        print("TapEditTitleButton")
     }
 
 
