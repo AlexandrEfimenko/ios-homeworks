@@ -10,35 +10,26 @@ import StorageService
 
 class FeedViewController: UIViewController {
 
+    let viewModel: FeedViewModel
+    private let posts: [Post]
+
     private lazy var postButton = CustomButton(title: "Пост 1", backgroundColor: nil, titleColor: .systemBlue,
-            action:  {
-            let posts = Posts.getPosts()
-            let post: Post = posts[0]
-
-            let postViewController = PostViewController()
-            postViewController.post = post
-            postViewController.modalTransitionStyle = .flipHorizontal // flipHorizontal
-            postViewController.modalPresentationStyle = .fullScreen // pageSheet
-
-            self.navigationController?.pushViewController(postViewController, animated: true)
-           }
-        )
+                                               action:  getActionButton(indexPost: 0))
 
 
     private lazy var button2 = CustomButton(title: "Пост 2", backgroundColor: nil, titleColor: .systemBlue,
-            action:  {
-            let posts = Posts.getPosts()
-            let post: Post = posts[1]
+                                            action: getActionButton(indexPost: 2))
 
-            let postViewController = PostViewController()
-            postViewController.post = post
-            postViewController.modalTransitionStyle = .flipHorizontal // flipHorizontal
-            postViewController.modalPresentationStyle = .fullScreen // pageSheet
 
-            self.navigationController?.pushViewController(postViewController, animated: true)
-           }
-        )
+    func getActionButton(indexPost: Int) ->  () -> Void  {
+        let post: Post = posts[indexPost]
 
+        let action = {
+            self.viewModel.onShowPost!(post)
+        }
+
+        return action
+    }
 
 
     private lazy var stackView: UIStackView = {
@@ -81,7 +72,7 @@ class FeedViewController: UIViewController {
             action:  {
 
             if let textPassword = self.passwordView.text {
-                let isValid = FeedModel.check(word: textPassword)
+                let isValid = self.viewModel.check(word: textPassword)
 
                 if isValid {
                     self.passwordCheckLabel.text = "пароль верный"
@@ -101,7 +92,17 @@ class FeedViewController: UIViewController {
 
 
 
+    init(viewModel: FeedViewModel, posts: [Post]) {
+        self.viewModel = viewModel
+        self.posts = posts
+        super.init(nibName: nil, bundle: nil)
+    }
+    
 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -8,6 +8,7 @@
 import UIKit
 
 class LogInViewController: UIViewController {
+    let profileViewModel: ProfileViewModel
 
     private lazy var contentView: UIView  = {
         let contentView = UIView()
@@ -111,6 +112,15 @@ class LogInViewController: UIViewController {
 
     var loginDelegate: LoginViewControllerDelegate?
 
+    init(profileModelView: ProfileViewModel) {
+        self.profileViewModel = profileModelView
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,10 +136,18 @@ class LogInViewController: UIViewController {
 
         navigationController?.navigationBar.isHidden = true
         setupConstraints()
+
+        loginTextField.text = "Alex" // для быстрого тестирования todo
+        passwordTextField.text = "123"
     }
-    
+
+
     override func viewWillAppear(_ animated: Bool) {
         setupKeyboardObservers()
+
+        if profileViewModel.isLogin {
+            profileViewModel.onShowProfileView!()
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -181,26 +199,19 @@ class LogInViewController: UIViewController {
 
 
     @objc func tapLoginButton(button: UIButton) {
-
         guard let loginDelegate = self.loginDelegate else { return }
 
         if  let login = loginTextField.text, let password = passwordTextField.text  {
-
             if loginDelegate.check(login: login, password: password) {
 
-               #if DEBUG
-                  let userService = TestUserService()
-               #else
-                  let userService = CurrentUserService()
-               #endif
+                let currentUser: User? = profileViewModel.getCurrentUser(login: login)
 
-                let currentUser = userService.getUser(login: login)
-
-                if let currentUser {
-                    let profileViewController = ProfileViewController(currentUser: currentUser)
-                    navigationController?.pushViewController(profileViewController, animated: true)
+                if currentUser != nil {
+                    profileViewModel.isLogin = true
+                    profileViewModel.onShowProfileView!()
                     return
                 }
+
             }
         }
 
