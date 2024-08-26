@@ -11,7 +11,15 @@ import iOSIntPackage
 class PhotosViewController: UIViewController {
 
     private var imagePublisherFacade: ImagePublisherFacade?
-    fileprivate lazy var photos: [UIImage?] = []
+    fileprivate lazy var photos: [UIImage?] = [] {
+
+        didSet {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+
+    }
 
     private let collectionView: UICollectionView = {
          let viewLayout = UICollectionViewFlowLayout()
@@ -58,8 +66,26 @@ class PhotosViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false
 
-        imagePublisherFacade?.subscribe(self)
-        imagePublisherFacade?.addImagesWithTimer(time: 0.5, repeat: 20, userImages: Photos.getPhotos())
+        //imagePublisherFacade?.subscribe(self)
+        //imagePublisherFacade?.addImagesWithTimer(time: 0.5, repeat: 20, userImages: Photos.getPhotos())
+
+        let myPhotos = Photos.getPhotos()
+
+        let imageProcessor = ImageProcessor()
+
+        let clock = ContinuousClock()
+
+        let resultTime = clock.measure {
+            imageProcessor.processImagesOnThread(sourceImages: myPhotos, filter: .posterize, qos: .utility, completion: {(photosNew) in
+
+                let result = photosNew.map({ UIImage(cgImage: $0!) })
+                self.photos = result
+            })
+        }
+
+        print(resultTime)
+
+
     }
 
     override func viewWillDisappear(_ animated: Bool) {
