@@ -11,15 +11,8 @@ import iOSIntPackage
 class PhotosViewController: UIViewController {
 
     private var imagePublisherFacade: ImagePublisherFacade?
-    fileprivate lazy var photos: [UIImage?] = [] {
+    fileprivate lazy var photos: [UIImage?] = []
 
-        didSet {
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
-
-    }
 
     private let collectionView: UICollectionView = {
          let viewLayout = UICollectionViewFlowLayout()
@@ -70,21 +63,22 @@ class PhotosViewController: UIViewController {
         //imagePublisherFacade?.addImagesWithTimer(time: 0.5, repeat: 20, userImages: Photos.getPhotos())
 
         let myPhotos = Photos.getPhotos()
-
         let imageProcessor = ImageProcessor()
 
-        let clock = ContinuousClock()
+        let start = NSDate()
+        imageProcessor.processImagesOnThread(sourceImages: myPhotos, filter: .colorInvert, qos: .userInteractive, completion: {(photosNew) in
+            let result = photosNew.map({ UIImage(cgImage: $0!) })
+            self.photos = result
 
-        let resultTime = clock.measure {
-            imageProcessor.processImagesOnThread(sourceImages: myPhotos, filter: .posterize, qos: .utility, completion: {(photosNew) in
+            let end = NSDate()
+            let timeInterval: Double = end.timeIntervalSince(start as Date)
+            print("Time interval: \(timeInterval) seconds")
 
-                let result = photosNew.map({ UIImage(cgImage: $0!) })
-                self.photos = result
-            })
-        }
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
 
-        print(resultTime)
-
+        })
 
     }
 
