@@ -13,6 +13,7 @@ class PhotosViewController: UIViewController {
     private var imagePublisherFacade: ImagePublisherFacade?
     fileprivate lazy var photos: [UIImage?] = []
 
+
     private let collectionView: UICollectionView = {
          let viewLayout = UICollectionViewFlowLayout()
 
@@ -58,8 +59,27 @@ class PhotosViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false
 
-        imagePublisherFacade?.subscribe(self)
-        imagePublisherFacade?.addImagesWithTimer(time: 0.5, repeat: 20, userImages: Photos.getPhotos())
+        //imagePublisherFacade?.subscribe(self)
+        //imagePublisherFacade?.addImagesWithTimer(time: 0.5, repeat: 20, userImages: Photos.getPhotos())
+
+        let myPhotos = Photos.getPhotos()
+        let imageProcessor = ImageProcessor()
+
+        let start = NSDate()
+        imageProcessor.processImagesOnThread(sourceImages: myPhotos, filter: .colorInvert, qos: .userInteractive, completion: {(photosNew) in
+            let result = photosNew.map({ UIImage(cgImage: $0!) })
+            self.photos = result
+
+            let end = NSDate()
+            let timeInterval: Double = end.timeIntervalSince(start as Date)
+            print("Time interval: \(timeInterval) seconds")
+
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+
+        })
+
     }
 
     override func viewWillDisappear(_ animated: Bool) {
