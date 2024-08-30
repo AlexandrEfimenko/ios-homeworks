@@ -10,8 +10,6 @@ import UIKit
 class LogInViewController: UIViewController {
     let profileViewModel: ProfileViewModel
 
-    private var activityIndicatorView = UIActivityIndicatorView(style: .large)
-
     private lazy var contentView: UIView  = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -100,21 +98,6 @@ class LogInViewController: UIViewController {
         return button
     } ()
 
-    private lazy var passwordSearchButton: UIButton = {
-        let button = UIButton()
-
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Подобрать пароль", for: .normal)
-        button.layer.cornerRadius = 10
-        button.backgroundColor = UIColor(.green)
-
-        button.addTarget(self, action: #selector(tapPasswordSearchButton), for: .touchUpInside)
-
-        button.isUserInteractionEnabled = true
-
-        return button
-    }()
-
     
     private lazy var scrollView: UIScrollView  = {
         let scroll = UIScrollView()
@@ -150,17 +133,12 @@ class LogInViewController: UIViewController {
         contentView.addSubview(logoVK)
         contentView.addSubview(loginPasswordStackView)
         contentView.addSubview(loginButton)
-        contentView.addSubview(passwordSearchButton)
-
-        view.addSubview(activityIndicatorView)
-        activityIndicatorView.color = .blue
-        activityIndicatorView.center = view.center
 
         navigationController?.navigationBar.isHidden = true
         setupConstraints()
 
         loginTextField.text = "Alex" // для быстрого тестирования todo
-        passwordTextField.text = "A123"
+        passwordTextField.text = "123"
     }
 
 
@@ -210,14 +188,9 @@ class LogInViewController: UIViewController {
             loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
             loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            loginButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-            line.heightAnchor.constraint(equalToConstant: 1),
-
-            passwordSearchButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
-            passwordSearchButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            passwordSearchButton.heightAnchor.constraint(equalToConstant: 50),
-            passwordSearchButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            passwordSearchButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            line.heightAnchor.constraint(equalToConstant: 1)
         ])
 
          contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
@@ -284,27 +257,17 @@ class LogInViewController: UIViewController {
     }
 
 
-    @objc func tapPasswordSearchButton(button: UIButton) {
-        var password  = ""
-        let passwordToUnlock = self.passwordTextField.text!
-        self.activityIndicatorView.startAnimating()
 
-        let serialQueue = DispatchQueue(label: "navigation.serial-queue")
 
-        let workItem = DispatchWorkItem {
-            password = BrutForce.bruteForce(passwordToUnlock: passwordToUnlock)
-            print(password)
-        }
 
-        workItem.notify(queue: DispatchQueue.main) {
-            self.activityIndicatorView.stopAnimating()
-            self.passwordTextField.text = password
-            self.passwordTextField.isSecureTextEntry = false
-        }
+    /*
+    // MARK: - Navigation
 
-        serialQueue.async(execute: workItem)
-
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
     }
-
+    */
 
 }
