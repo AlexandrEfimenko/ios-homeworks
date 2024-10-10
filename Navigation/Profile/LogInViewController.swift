@@ -286,7 +286,19 @@ class LogInViewController: UIViewController {
 
     @objc func tapPasswordSearchButton(button: UIButton) {
         var password  = ""
-        let passwordToUnlock = self.passwordTextField.text!
+
+        guard let passwordToUnlock = self.passwordTextField.text else {
+            return
+        }
+
+        if passwordToUnlock == "" {
+            let alert = UIAlertController(title: "Введите пароль", message: "", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+            return
+        }
+
         self.activityIndicatorView.startAnimating()
 
         let serialQueue = DispatchQueue(label: "navigation.serial-queue")

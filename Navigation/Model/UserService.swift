@@ -8,6 +8,6 @@
 import Foundation
 
 protocol UserService {
-    func getUser(login: String) -> User?
+    func getUser(login: String) -> Result<User, MyError>
 }
 
