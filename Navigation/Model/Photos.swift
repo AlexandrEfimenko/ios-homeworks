@@ -10,7 +10,13 @@ import UIKit
 
 class Photos {
 
-    static func getPhotos() -> [UIImage] {
+    static func getPhotos() throws -> [UIImage] {
+
+        let randomInt = Int.random(in: 0..<6)
+
+        guard (1..<3).contains(randomInt) else {
+            throw MyError.photoNoneFound
+        }
 
         let photos: [UIImage] = [
                      UIImage(named: "Car")!,

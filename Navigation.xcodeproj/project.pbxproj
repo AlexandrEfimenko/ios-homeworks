@@ -41,6 +41,7 @@
 		1FB4C0062C46E41B002B0723 /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB4C0052C46E41B002B0723 /* FeedCoordinator.swift */; };
 		1FB4C0082C46E48A002B0723 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB4C0072C46E489002B0723 /* ProfileCoordinator.swift */; };
 		1FB4C00B2C4734D4002B0723 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB4C00A2C4734D3002B0723 /* FeedViewModel.swift */; };
+		1FCCD1F72CA4B7C6008DEAB0 /* MyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCD1F62CA4B7C6008DEAB0 /* MyError.swift */; };
 		1FEE64DD2C18F67000E8DF05 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE64DC2C18F67000E8DF05 /* User.swift */; };
 		1FEE64DF2C18F78400E8DF05 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE64DE2C18F78400E8DF05 /* UserService.swift */; };
 		1FEE64E12C18F83A00E8DF05 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE64E02C18F83A00E8DF05 /* CurrentUserService.swift */; };
@@ -109,6 +110,7 @@
 		1FB4C0052C46E41B002B0723 /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		1FB4C0072C46E489002B0723 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		1FB4C00A2C4734D3002B0723 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
+		1FCCD1F62CA4B7C6008DEAB0 /* MyError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyError.swift; sourceTree = "<group>"; };
 		1FEE64DC2C18F67000E8DF05 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1FEE64DE2C18F78400E8DF05 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		1FEE64E02C18F83A00E8DF05 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				1F64F6B42A680F4300A88A75 /* LaunchScreen.storyboard */,
 				1F64F6B72A680F4300A88A75 /* Info.plist */,
 				1F7523442C7FBECF0083149E /* BrutForce.swift */,
+				1FCCD1F62CA4B7C6008DEAB0 /* MyError.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				1F02F4862C3C8C8E00E4D912 /* CustomButton.swift in Sources */,
 				1F044C1E2A6F0C97005195A8 /* FeedViewController.swift in Sources */,
 				1FB4C00B2C4734D4002B0723 /* FeedViewModel.swift in Sources */,
+				1FCCD1F72CA4B7C6008DEAB0 /* MyError.swift in Sources */,
 				1F7523452C7FBECF0083149E /* BrutForce.swift in Sources */,
 				1F098CA82BAA289A0088FD08 /* Photos.swift in Sources */,
 				1FEE64DD2C18F67000E8DF05 /* User.swift in Sources */,

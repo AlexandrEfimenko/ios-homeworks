@@ -32,9 +32,16 @@ class ProfileViewModel: ProfileViewModelProtocol {
         let userService = CurrentUserService()
      #endif
 
-       self.currentUser = userService.getUser(login: login)
+    let result: Result = userService.getUser(login: login)
 
-       return self.currentUser
+        switch result {
+        case .success(let user):
+            self.currentUser = user
+        case .failure(_):
+            return nil
+        }
+
+        return self.currentUser
     }
     
     

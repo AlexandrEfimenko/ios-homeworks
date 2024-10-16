@@ -10,11 +10,24 @@ import UIKit
 
 class TestUserService: UserService {
 
-    private let user: User = User(login: "Test", fullName: "Тестовый", status: "На отдыхе", avatar: UIImage(named: "Image14")!)
+    let randomInt = Int.random(in: 0..<6)
 
 
-    func getUser(login: String) -> User? {
-         self.user.login == login  ?  self.user : nil
+   private let user: User = User(login: "Test", fullName: "Тестовый", status: "На отдыхе", avatar: UIImage(named: "Image14")!)
+
+
+    func getUser(login: String) -> Result<User, MyError> {
+
+        guard (1..<3).contains(randomInt) else {
+            //Имитация ошибки получения юзера
+            preconditionFailure("Не получен текущий пользователь")
+        }
+
+        if self.user.login == login {
+            return Result.success(self.user)
+        } else {
+            return Result.failure(MyError.userNoneFound)
+        }
     }
 
 }

@@ -14,19 +14,23 @@ class ProfileCoordinator: Coordinator {
     let profileViewModel = ProfileViewModel()
 
     func start() -> UIViewController {
-        let loginFactory = MyLoginFactory()
+            let loginFactory = MyLoginFactory()
 
-        profileViewModel.onShowProfileView = { self.showProfileViewController() }
-        profileViewModel.onBackToRoot = { self.backToLoginView() }
+            let loginDelegate = loginFactory.makeLoginInspector()
 
-        let loginViewController = LogInViewController(profileModelView: profileViewModel)
-        loginViewController.loginDelegate = loginFactory.makeLoginInspector()
-        loginViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "person.fill"), tag: 1)
+            profileViewModel.onShowProfileView = { self.showProfileViewController() }
+            profileViewModel.onBackToRoot = { self.backToLoginView() }
 
-        let navigationController = UINavigationController(rootViewController: loginViewController)
-        rootViewController = navigationController
+            let loginViewController = LogInViewController(profileModelView: profileViewModel)
 
-        return navigationController
+            loginViewController.loginDelegate = loginDelegate
+
+            loginViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "person.fill"), tag: 1)
+
+            let navigationController = UINavigationController(rootViewController: loginViewController)
+            rootViewController = navigationController
+
+            return navigationController
     }
 
 

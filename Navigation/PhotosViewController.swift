@@ -62,23 +62,33 @@ class PhotosViewController: UIViewController {
         //imagePublisherFacade?.subscribe(self)
         //imagePublisherFacade?.addImagesWithTimer(time: 0.5, repeat: 20, userImages: Photos.getPhotos())
 
-        let myPhotos = Photos.getPhotos()
-        let imageProcessor = ImageProcessor()
 
-        let start = NSDate()
-        imageProcessor.processImagesOnThread(sourceImages: myPhotos, filter: .colorInvert, qos: .userInteractive, completion: {(photosNew) in
-            let result = photosNew.map({ UIImage(cgImage: $0!) })
-            self.photos = result
+        do {
+            let myPhotos = try Photos.getPhotos()
+            let imageProcessor = ImageProcessor()
 
-            let end = NSDate()
-            let timeInterval: Double = end.timeIntervalSince(start as Date)
-            print("Time interval: \(timeInterval) seconds")
+            let start = NSDate()
+            imageProcessor.processImagesOnThread(sourceImages: myPhotos, filter: .colorInvert, qos: .userInteractive, completion: {(photosNew) in
+                let result = photosNew.map({ UIImage(cgImage: $0!) })
+                self.photos = result
 
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
+                let end = NSDate()
+                let timeInterval: Double = end.timeIntervalSince(start as Date)
+                print("Time interval: \(timeInterval) seconds")
 
-        })
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+
+            })
+
+        } catch {
+            let alert = UIAlertController(title: "Фотографии не загружены", message: "Ошибка при загрузке", preferredStyle: .actionSheet)
+
+            alert.addAction(UIAlertAction(title: "Close", style: .destructive, handler: { _ in self.navigationController?.popViewController(animated: true) }))
+
+            present(alert, animated: true)
+        }
 
     }
 

@@ -12,16 +12,21 @@ class FeedViewController: UIViewController {
 
     let viewModel: FeedViewModel
     private let posts: [Post]
+    var timer: Timer?
+    var timeLeft = 60
 
-    private lazy var postButton = CustomButton(title: "Пост 1", backgroundColor: nil, titleColor: .systemBlue,
-                                               action:  getActionButton(indexPost: 0))
+
+    private lazy var postButton = CustomButton(title: "Пост 1", backgroundColor: nil, titleColor: .systemBlue, action: try? getActionButton(indexPost: 0))
 
 
     private lazy var button2 = CustomButton(title: "Пост 2", backgroundColor: nil, titleColor: .systemBlue,
-                                            action: getActionButton(indexPost: 2))
+                                            action: try? getActionButton(indexPost: 2))
 
 
-    func getActionButton(indexPost: Int) ->  () -> Void  {
+    func getActionButton(indexPost: Int) throws -> () -> Void  {
+
+        guard indexPost > posts.count  else  { throw  MyError.invalidArray}
+
         let post: Post = posts[indexPost]
 
         let action = {
@@ -87,9 +92,24 @@ class FeedViewController: UIViewController {
                 self.passwordCheckLabel.textColor = .red
             }
 
-           }
+
+            if self.timer == nil {
+                self.timer = Timer(timeInterval: 1.0, target: self, selector: #selector(self.onTimer), userInfo: nil, repeats: true)
+
+                RunLoop.current.add(self.timer!, forMode: .common)
+            }
+
+        }
         )
 
+
+    private lazy var timeLabel: UILabel = {
+           let view = UILabel()
+           view.translatesAutoresizingMaskIntoConstraints = false
+           view.textColor = .black
+           view.font = .systemFont(ofSize: 14)
+           return view
+       }()
 
 
     init(viewModel: FeedViewModel, posts: [Post]) {
@@ -114,7 +134,10 @@ class FeedViewController: UIViewController {
         view.addSubview(passwordCheckLabel)
         view.addSubview(checkGuessButton)
         view.addSubview(stackView)
+        view.addSubview(timeLabel)
         setupConstraints()
+
+        timeLabel.text = ""
     }
     
 
@@ -131,12 +154,23 @@ class FeedViewController: UIViewController {
             passwordView.leadingAnchor.constraint(equalTo: passwordTitle.trailingAnchor, constant: 5.0),
             passwordView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10.0),
             passwordView.widthAnchor.constraint(equalToConstant: 100),
+            passwordView.heightAnchor.constraint(equalToConstant: 30),
 
             checkGuessButton.topAnchor.constraint(equalTo: passwordView.bottomAnchor, constant: 10.0),
             checkGuessButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            checkGuessButton.heightAnchor.constraint(equalToConstant: 30),
 
             passwordCheckLabel.topAnchor.constraint(equalTo: checkGuessButton.bottomAnchor, constant: 10.0),
             passwordCheckLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            passwordCheckLabel.heightAnchor.constraint(equalToConstant: 30),
+
+            timeLabel.topAnchor.constraint(equalTo: passwordCheckLabel.bottomAnchor, constant: 10.0),
+            timeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5.0),
+            timeLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -5.0),
+            timeLabel.heightAnchor.constraint(equalToConstant: 30.0),
+            timeLabel.widthAnchor.constraint(equalToConstant: 100),
+
+            stackView.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 10.0),
 
             stackView.leadingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.leadingAnchor,
@@ -146,9 +180,29 @@ class FeedViewController: UIViewController {
                 equalTo: safeAreaLayoutGuide.trailingAnchor,
                 constant: -10.0
             ),
-            stackView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
-            stackView.heightAnchor.constraint(equalToConstant: 100)
+            stackView.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+
+    @objc func onTimer() {
+
+        if timeLeft == 60 {
+            checkGuessButton.isEnabled = false
+            checkGuessButton.alpha = 0.5
+        }
+
+
+        timeLeft -= 1
+        timeLabel.text = "Через \(timeLeft) сек. вы можете повторно проверить пароль"
+
+        if timeLeft <= 0 {
+            timer?.invalidate()
+            timer = nil
+            timeLeft = 60
+            timeLabel.text = ""
+            checkGuessButton.isEnabled = true
+            checkGuessButton.alpha = 1.0
+        }
     }
 }
 

@@ -13,8 +13,15 @@ class CurrentUserService: UserService {
     private let user: User = User(login: "Alex", fullName: "Alexandr", status: "На отдыхе", avatar: UIImage(named: "Nature")!)
 
 
-    func getUser(login: String) -> User? {
-         self.user.login == login  ?  self.user : nil
+    func getUser(login: String) -> Result<User, MyError>   {
+
+        if self.user.login == login {
+            return Result.success(self.user)
+        } else {
+            return Result.failure(MyError.userNoneFound)
+        }
+
     }
 
 }
+

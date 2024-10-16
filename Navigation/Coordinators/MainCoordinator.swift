@@ -12,7 +12,7 @@ class MainCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     lazy var rootViewController: UIViewController = UITabBarController()
     lazy var feedCoordinator  = FeedCoordinator()
-    lazy var profileCoordinator = ProfileCoordinator()
+    lazy var profileCoordinator: Coordinator = ProfileCoordinator()
 
 
     func start() -> UIViewController {
