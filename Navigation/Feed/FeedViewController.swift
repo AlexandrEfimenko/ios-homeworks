@@ -15,15 +15,18 @@ class FeedViewController: UIViewController {
     var timer: Timer?
     var timeLeft = 60
 
-    private lazy var postButton = CustomButton(title: "Пост 1", backgroundColor: nil, titleColor: .systemBlue,
-                                               action:  getActionButton(indexPost: 0))
+
+    private lazy var postButton = CustomButton(title: "Пост 1", backgroundColor: nil, titleColor: .systemBlue, action: try? getActionButton(indexPost: 0))
 
 
     private lazy var button2 = CustomButton(title: "Пост 2", backgroundColor: nil, titleColor: .systemBlue,
-                                            action: getActionButton(indexPost: 2))
+                                            action: try? getActionButton(indexPost: 2))
 
 
-    func getActionButton(indexPost: Int) ->  () -> Void  {
+    func getActionButton(indexPost: Int) throws -> () -> Void  {
+
+        guard indexPost > posts.count  else  { throw  MyError.invalidArray}
+
         let post: Post = posts[indexPost]
 
         let action = {
@@ -90,11 +93,13 @@ class FeedViewController: UIViewController {
             }
 
 
-        self.timer = Timer(timeInterval: 1.0, target: self, selector: #selector(self.onTimer), userInfo: nil, repeats: true)
+            if self.timer == nil {
+                self.timer = Timer(timeInterval: 1.0, target: self, selector: #selector(self.onTimer), userInfo: nil, repeats: true)
 
-        RunLoop.current.add(self.timer!, forMode: .common)
+                RunLoop.current.add(self.timer!, forMode: .common)
+            }
 
-           }
+        }
         )
 
 

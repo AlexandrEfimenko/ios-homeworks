@@ -22,6 +22,8 @@ class FeedCoordinator: Coordinator {
         }
 
         let posts = Posts.getPosts()
+
+
         let feedViewController = FeedViewController(viewModel: feedViewModel, posts: posts)
         feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(named: "house.fill"), tag: 0)
 

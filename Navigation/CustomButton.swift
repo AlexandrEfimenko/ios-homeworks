@@ -11,7 +11,7 @@ class CustomButton: UIButton {
 
     private var action: (() -> Void)? = nil
 
-    convenience init(title: String, backgroundColor: UIColor?, titleColor: UIColor, action: @escaping ()-> Void) {
+    convenience init(title: String, backgroundColor: UIColor?, titleColor: UIColor, action: (()-> Void)?) {
 
         self.init(frame: .zero)
 
