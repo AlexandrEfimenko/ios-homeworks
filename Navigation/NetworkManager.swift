@@ -50,7 +50,7 @@ enum NetworkError: Error, CustomStringConvertible {
 
 struct NetworkManager {
     static func request(for configuration: AppConfiguration) {
-        let url = URL(string: configuration.url+"s")!
+        let url = URL(string: configuration.url)!
 
         let session = URLSession.shared
         let task = session.dataTask(with: url) {data, response, error in
