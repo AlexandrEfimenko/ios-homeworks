@@ -19,8 +19,18 @@ class FeedViewController: UIViewController {
     private lazy var postButton = CustomButton(title: "Пост 1", backgroundColor: nil, titleColor: .systemBlue, action: try? getActionButton(indexPost: 0))
 
 
-    private lazy var button2 = CustomButton(title: "Пост 2", backgroundColor: nil, titleColor: .systemBlue,
-                                            action: try? getActionButton(indexPost: 2))
+    private lazy var postButton2 = CustomButton(title: "Пост 2", backgroundColor: nil, titleColor: .systemBlue,
+                                            action: try? getActionButton(indexPost: 1))
+
+
+    private lazy var infoButton: UIButton = {
+        let view = UIButton()
+          view.translatesAutoresizingMaskIntoConstraints = false
+          view.setTitle("info view open", for: .normal)
+          view.setTitleColor(.blue, for: .normal)
+          view.addTarget(self, action: #selector(infoViewButtonTapped), for: .touchUpInside)
+          return view
+      }()
 
 
     func getActionButton(indexPost: Int) throws -> () -> Void  {
@@ -43,8 +53,10 @@ class FeedViewController: UIViewController {
            stack.axis = .vertical
 
            stack.addArrangedSubview(postButton)
-           stack.addArrangedSubview(button2)
+           stack.addArrangedSubview(postButton2)
+
            stack.spacing = 10
+           stack.isUserInteractionEnabled = true
 
            return stack
        }()
@@ -133,8 +145,13 @@ class FeedViewController: UIViewController {
         view.addSubview(passwordView)
         view.addSubview(passwordCheckLabel)
         view.addSubview(checkGuessButton)
-        view.addSubview(stackView)
         view.addSubview(timeLabel)
+
+        view.addSubview(infoButton)
+       // view.addSubview(stackView)
+
+        //postButton.isUserInteractionEnabled = true
+
         setupConstraints()
 
         timeLabel.text = ""
@@ -145,42 +162,46 @@ class FeedViewController: UIViewController {
     fileprivate func setupConstraints() {
         let safeAreaLayoutGuide = view.safeAreaLayoutGuide
 
+
         NSLayoutConstraint.activate([
             passwordTitle.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5.0),
             passwordTitle.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10.0),
-            passwordTitle.widthAnchor.constraint(equalToConstant: 70),
+            passwordTitle.heightAnchor.constraint(equalToConstant: 30),
+
 
             passwordView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10.0),
             passwordView.leadingAnchor.constraint(equalTo: passwordTitle.trailingAnchor, constant: 5.0),
             passwordView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10.0),
-            passwordView.widthAnchor.constraint(equalToConstant: 100),
+            passwordView.widthAnchor.constraint(equalToConstant: 250),
             passwordView.heightAnchor.constraint(equalToConstant: 30),
 
             checkGuessButton.topAnchor.constraint(equalTo: passwordView.bottomAnchor, constant: 10.0),
             checkGuessButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             checkGuessButton.heightAnchor.constraint(equalToConstant: 30),
+            checkGuessButton.widthAnchor.constraint(equalToConstant: 200),
+
 
             passwordCheckLabel.topAnchor.constraint(equalTo: checkGuessButton.bottomAnchor, constant: 10.0),
             passwordCheckLabel.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             passwordCheckLabel.heightAnchor.constraint(equalToConstant: 30),
+            passwordCheckLabel.widthAnchor.constraint(equalToConstant: 100),
+
 
             timeLabel.topAnchor.constraint(equalTo: passwordCheckLabel.bottomAnchor, constant: 10.0),
             timeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5.0),
             timeLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -5.0),
             timeLabel.heightAnchor.constraint(equalToConstant: 30.0),
-            timeLabel.widthAnchor.constraint(equalToConstant: 100),
+            //timeLabel.widthAnchor.constraint(equalToConstant: 100)
 
-            stackView.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 10.0),
 
-            stackView.leadingAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.leadingAnchor,
+            infoButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 10.0),
+            infoButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
                 constant: 10.0
             ),
-            stackView.trailingAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.trailingAnchor,
-                constant: -10.0
-            ),
-            stackView.heightAnchor.constraint(equalToConstant: 50)
+
+            infoButton.heightAnchor.constraint(equalToConstant: 50),
+            infoButton.widthAnchor.constraint(equalToConstant: self.view.frame.width)
+
         ])
     }
 
@@ -203,6 +224,12 @@ class FeedViewController: UIViewController {
             checkGuessButton.isEnabled = true
             checkGuessButton.alpha = 1.0
         }
+    }
+
+
+    @objc func infoViewButtonTapped() {
+        let vc = NewInfoViewController()
+        present(vc, animated: true)
     }
 }
 

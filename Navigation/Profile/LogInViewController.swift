@@ -48,7 +48,7 @@ class LogInViewController: UIViewController {
         pass.translatesAutoresizingMaskIntoConstraints = false
         pass.autocapitalizationType = .none
         pass.font = .systemFont(ofSize: 16, weight: .medium)
-        pass.isSecureTextEntry = true
+       // pass.isSecureTextEntry = true
 
         return pass
     } ()
@@ -159,8 +159,15 @@ class LogInViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         setupConstraints()
 
+    #if DEBUG
+        loginTextField.text = "Test" // для быстрого тестирования todo
+        passwordTextField.text = "123"
+    #else
         loginTextField.text = "Alex" // для быстрого тестирования todo
-        passwordTextField.text = "A123"
+        passwordTextField.text = "123"
+    #endif
+
+
     }
 
 
