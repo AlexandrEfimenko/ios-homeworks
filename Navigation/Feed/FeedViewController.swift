@@ -124,6 +124,17 @@ class FeedViewController: UIViewController {
        }()
 
 
+    private lazy var buttonMap: UIButton = {
+        let view = UIButton()
+           view.translatesAutoresizingMaskIntoConstraints = false
+           view.setTitle("Открыть карту", for: .normal)
+           view.setTitleColor(.magenta, for: .normal)
+           view.addTarget(self, action: #selector(mapButtonTapped), for: .touchUpInside)
+           return view
+       }()
+
+
+
     init(viewModel: FeedViewModel, posts: [Post]) {
         self.viewModel = viewModel
         self.posts = posts
@@ -148,9 +159,7 @@ class FeedViewController: UIViewController {
         view.addSubview(timeLabel)
 
         view.addSubview(infoButton)
-       // view.addSubview(stackView)
-
-        //postButton.isUserInteractionEnabled = true
+        view.addSubview(buttonMap)
 
         setupConstraints()
 
@@ -200,7 +209,15 @@ class FeedViewController: UIViewController {
             ),
 
             infoButton.heightAnchor.constraint(equalToConstant: 50),
-            infoButton.widthAnchor.constraint(equalToConstant: self.view.frame.width)
+            infoButton.widthAnchor.constraint(equalToConstant: self.view.frame.width),
+
+            buttonMap.topAnchor.constraint(equalTo: infoButton.bottomAnchor, constant: 10.0),
+            buttonMap.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
+                constant: 10.0
+            ),
+
+            buttonMap.heightAnchor.constraint(equalToConstant: 50),
+            buttonMap.widthAnchor.constraint(equalToConstant: self.view.frame.width)
 
         ])
     }
@@ -231,5 +248,12 @@ class FeedViewController: UIViewController {
         let vc = NewInfoViewController()
         present(vc, animated: true)
     }
+
+    @objc func mapButtonTapped() {
+        let vc = MapLocationViewController()
+        present(vc, animated: true)
+    }
+
+
 }
 

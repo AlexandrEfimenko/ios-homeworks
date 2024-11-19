@@ -93,7 +93,7 @@ class InfoViewController: UIViewController {
 
 
     fileprivate func сonstraintButton() {
-        let safeAreaLayoutGuide = view.safeAreaLayoutGuide
+        //let safeAreaLayoutGuide = view.safeAreaLayoutGuide
 
         /*
         NSLayoutConstraint.activate([
