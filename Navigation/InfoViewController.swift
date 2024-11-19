@@ -10,6 +10,13 @@ import UIKit
 class InfoViewController: UIViewController {
     let viewModel: PostViewModel
 
+    private lazy var myTitle: UILabel = {
+        let view =  UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        return view
+    } ()
+
     private lazy var myButton: UIButton = {
 
         let button = CustomButton(title: "Alert", backgroundColor: nil, titleColor: .systemBlue, 
@@ -48,6 +55,15 @@ class InfoViewController: UIViewController {
         )
            return button
        }()
+    
+    private lazy var buttonGetJson: UIButton = {
+        let button = CustomButton(title: "get JSON", backgroundColor: nil, titleColor: .blue,
+            action:  {
+           // self.titlelabel.text = "test"
+            }
+        )
+           return button
+       }()
 
 
     init(viewModel: PostViewModel) {
@@ -69,6 +85,8 @@ class InfoViewController: UIViewController {
         view.addSubview(myButton)
         view.addSubview(buttonClose)
         view.addSubview(buttonBackToFeed)
+       //view.addSubview(titlelabel)
+       // view.addSubview(buttonGetJson)
 
         сonstraintButton()
     }
@@ -77,6 +95,7 @@ class InfoViewController: UIViewController {
     fileprivate func сonstraintButton() {
         let safeAreaLayoutGuide = view.safeAreaLayoutGuide
 
+        /*
         NSLayoutConstraint.activate([
             myButton.leadingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.leadingAnchor,
@@ -88,10 +107,9 @@ class InfoViewController: UIViewController {
             ),
             myButton.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
             myButton.heightAnchor.constraint(equalToConstant: 80.0)
-        ])
 
 
-        NSLayoutConstraint.activate([
+
             buttonClose.leadingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.leadingAnchor,
                 constant: 20.0
@@ -99,15 +117,17 @@ class InfoViewController: UIViewController {
             buttonClose.trailingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.trailingAnchor,
                 constant: -20.0
-            ),
+            )
 
           //  buttonClose.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 10),
 
-            buttonClose.heightAnchor.constraint(equalToConstant: 60.0)
 
-        ])
 
-        NSLayoutConstraint.activate([
+
+            buttonClose.heightAnchor.constraint(equalToConstant: 60.0),
+
+
+
             buttonBackToFeed.leadingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.leadingAnchor,
                 constant: 20.0
@@ -118,10 +138,40 @@ class InfoViewController: UIViewController {
             ),
 
             buttonBackToFeed.topAnchor.constraint(equalTo: buttonClose.bottomAnchor, constant: 10),
-            buttonBackToFeed.bottomAnchor.constraint(equalTo:safeAreaLayoutGuide.bottomAnchor, constant: 10),
-            buttonBackToFeed.heightAnchor.constraint(equalToConstant: 60.0)
+          // buttonBackToFeed.bottomAnchor.constraint(equalTo:buttonClose.bottomAnchor, constant: 10),
+            buttonBackToFeed.heightAnchor.constraint(equalToConstant: 60.0),
 
-        ])
+
+            buttonGetJson.leadingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.leadingAnchor,
+                constant: 20.0
+            ),
+            buttonGetJson.trailingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.trailingAnchor,
+                constant: -20.0
+            ),
+
+            buttonGetJson.topAnchor.constraint(equalTo: buttonBackToFeed.bottomAnchor, constant: 10),
+           // buttonGetJson.bottomAnchor.constraint(equalTo:safeAreaLayoutGuide.bottomAnchor, constant: 10),
+            buttonGetJson.heightAnchor.constraint(equalToConstant: 60.0),
+
+
+            titlelabel.leadingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.leadingAnchor,
+                constant: 20.0
+            ),
+            titlelabel.trailingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.trailingAnchor,
+                constant: -20.0
+            ),
+
+            titlelabel.topAnchor.constraint(equalTo: buttonGetJson.bottomAnchor, constant: 10),
+            titlelabel.bottomAnchor.constraint(equalTo:safeAreaLayoutGuide.bottomAnchor, constant: 10),
+            titlelabel.heightAnchor.constraint(equalToConstant: 60.0)
+
+        ]) */
+
+
 
 
     }
