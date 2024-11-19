@@ -36,6 +36,7 @@ class FeedCoordinator: Coordinator {
 
 
     func showPost(post: Post) {
+        print("showPost")
         postViewModel.onShowInfo = {
             self.showInfo()
         }

@@ -25,6 +25,7 @@
 		1F2232E72C52C20400CEF6C7 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2232E62C52C20400CEF6C7 /* ProfileViewModel.swift */; };
 		1F26A2BC2C6EBE240063548B /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F26A2BB2C6EBE240063548B /* PostViewModel.swift */; };
 		1F2A6E1B2B69BA9E0087A179 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2A6E1A2B69BA9E0087A179 /* ProfileHeaderView.swift */; };
+		1F2EAE7C2CD2E41600CE5420 /* NewInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2EAE7B2CD2E41600CE5420 /* NewInfoViewController.swift */; };
 		1F64F6AA2A680F4100A88A75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F64F6A92A680F4100A88A75 /* AppDelegate.swift */; };
 		1F64F6AC2A680F4100A88A75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F64F6AB2A680F4100A88A75 /* SceneDelegate.swift */; };
 		1F64F6B32A680F4300A88A75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F64F6B22A680F4300A88A75 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 		1F776F8E2C0150DF00AB2778 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F776F872C0150DF00AB2778 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F776F932C0150EE00AB2778 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F044C232A6F1311005195A8 /* Post.swift */; };
 		1FB0BCFA2C3ECAA9000234CC /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB0BCF92C3ECAA9000234CC /* FeedModel.swift */; };
+		1FB2993E2CC158AC00FBC51D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB2993D2CC158AC00FBC51D /* NetworkManager.swift */; };
 		1FB4BFFF2C46D748002B0723 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 1F815A172C35C0400057482B /* iOSIntPackage */; };
 		1FB4C0022C46D7D5002B0723 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB4C0012C46D7D5002B0723 /* Coordinator.swift */; };
 		1FB4C0042C46D863002B0723 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB4C0032C46D863002B0723 /* MainCoordinator.swift */; };
@@ -42,6 +44,7 @@
 		1FB4C0082C46E48A002B0723 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB4C0072C46E489002B0723 /* ProfileCoordinator.swift */; };
 		1FB4C00B2C4734D4002B0723 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB4C00A2C4734D3002B0723 /* FeedViewModel.swift */; };
 		1FCCD1F72CA4B7C6008DEAB0 /* MyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCD1F62CA4B7C6008DEAB0 /* MyError.swift */; };
+		1FEC0CA62CED23CB002CBBC8 /* MapLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC0CA52CED23CB002CBBC8 /* MapLocationViewController.swift */; };
 		1FEE64DD2C18F67000E8DF05 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE64DC2C18F67000E8DF05 /* User.swift */; };
 		1FEE64DF2C18F78400E8DF05 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE64DE2C18F78400E8DF05 /* UserService.swift */; };
 		1FEE64E12C18F83A00E8DF05 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE64E02C18F83A00E8DF05 /* CurrentUserService.swift */; };
@@ -95,6 +98,7 @@
 		1F2232E62C52C20400CEF6C7 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		1F26A2BB2C6EBE240063548B /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		1F2A6E1A2B69BA9E0087A179 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		1F2EAE7B2CD2E41600CE5420 /* NewInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewInfoViewController.swift; sourceTree = "<group>"; };
 		1F64F6A62A680F4100A88A75 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F64F6A92A680F4100A88A75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F64F6AB2A680F4100A88A75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,12 +109,14 @@
 		1F776F872C0150DF00AB2778 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F776F892C0150DF00AB2778 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		1FB0BCF92C3ECAA9000234CC /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
+		1FB2993D2CC158AC00FBC51D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1FB4C0012C46D7D5002B0723 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		1FB4C0032C46D863002B0723 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		1FB4C0052C46E41B002B0723 /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		1FB4C0072C46E489002B0723 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		1FB4C00A2C4734D3002B0723 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		1FCCD1F62CA4B7C6008DEAB0 /* MyError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyError.swift; sourceTree = "<group>"; };
+		1FEC0CA52CED23CB002CBBC8 /* MapLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationViewController.swift; sourceTree = "<group>"; };
 		1FEE64DC2C18F67000E8DF05 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1FEE64DE2C18F78400E8DF05 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		1FEE64E02C18F83A00E8DF05 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
@@ -197,6 +203,8 @@
 				1F64F6B72A680F4300A88A75 /* Info.plist */,
 				1F7523442C7FBECF0083149E /* BrutForce.swift */,
 				1FCCD1F62CA4B7C6008DEAB0 /* MyError.swift */,
+				1FB2993D2CC158AC00FBC51D /* NetworkManager.swift */,
+				1FEC0CA52CED23CB002CBBC8 /* MapLocationViewController.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -248,6 +256,7 @@
 				1FB0BCF92C3ECAA9000234CC /* FeedModel.swift */,
 				1F044C1D2A6F0C97005195A8 /* FeedViewController.swift */,
 				1FB4C00A2C4734D3002B0723 /* FeedViewModel.swift */,
+				1F2EAE7B2CD2E41600CE5420 /* NewInfoViewController.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -314,7 +323,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					1F64F6A52A680F4100A88A75 = {
 						CreatedOnToolsVersion = 14.2;
@@ -370,6 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FB2993E2CC158AC00FBC51D /* NetworkManager.swift in Sources */,
 				1F64F6AA2A680F4100A88A75 /* AppDelegate.swift in Sources */,
 				1FB4C0042C46D863002B0723 /* MainCoordinator.swift in Sources */,
 				1F1E35C12C26D36000435477 /* Checker.swift in Sources */,
@@ -381,9 +391,11 @@
 				1FCCD1F72CA4B7C6008DEAB0 /* MyError.swift in Sources */,
 				1F7523452C7FBECF0083149E /* BrutForce.swift in Sources */,
 				1F098CA82BAA289A0088FD08 /* Photos.swift in Sources */,
+				1F2EAE7C2CD2E41600CE5420 /* NewInfoViewController.swift in Sources */,
 				1FEE64DD2C18F67000E8DF05 /* User.swift in Sources */,
 				1FB4C0022C46D7D5002B0723 /* Coordinator.swift in Sources */,
 				1FEE64DF2C18F78400E8DF05 /* UserService.swift in Sources */,
+				1FEC0CA62CED23CB002CBBC8 /* MapLocationViewController.swift in Sources */,
 				1F044C262A6F1BE6005195A8 /* InfoViewController.swift in Sources */,
 				1FF8D2AB2B87D98D00466935 /* Posts.swift in Sources */,
 				1F2232E72C52C20400CEF6C7 /* ProfileViewModel.swift in Sources */,
@@ -559,7 +571,6 @@
 		1F64F6BB2A680F4300A88A75 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -567,12 +578,14 @@
 				DEVELOPMENT_TEAM = FJXFAHPPM6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Разрешите пожалуйста для использования карты и маршрутов";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -589,7 +602,6 @@
 		1F64F6BC2A680F4300A88A75 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -597,12 +609,14 @@
 				DEVELOPMENT_TEAM = FJXFAHPPM6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Разрешите пожалуйста для использования карты и маршрутов";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
